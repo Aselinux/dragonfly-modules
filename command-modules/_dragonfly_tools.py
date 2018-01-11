@@ -160,8 +160,8 @@ class ShowVersionRule(CompoundRule):
     def _process_recognition(self, node, extras):
         dragonfly_dist = pkg_resources.get_distribution("dragonfly")
         print "Current Dragonfly version:", dragonfly_dist.version
-        import dragonfly.engines.engine
-        engine = dragonfly.engines.engine.get_engine()
+        import dragonfly.engines
+        engine = dragonfly.get_engine()
         print "Current language: %r" % engine.language
 
 grammar.add_rule(ShowVersionRule())

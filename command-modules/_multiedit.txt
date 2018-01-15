@@ -182,6 +182,11 @@ cmd.map = {
 			"[do] start drag": Mouse("left:down"),
 			"[do] stop drag": Mouse("left:up"),
 			
+			# tab control in browsers and gnome-shell
+			"pret [<n>]": Key("c-pgup/5:%(n)d"),
+			"net [<n>]": Key("c-pgdown/5:%(n)d"),
+			#"clote": Key("c-w"),
+			
           }
 
 

@@ -16,7 +16,7 @@ from dragonfly import *
 #  Note that it is harmless to release ("...:up") a key multiple
 #  times or when that key is not held down at all.
 
-release = Key("shift:up, ctrl:up")
+release = Key("shift:up, ctrl:up, alt:up")
 
 
 #---------------------------------------------------------------------------
@@ -62,8 +62,10 @@ cmd.map = {
            "release shift":                    Key("shift:up"),
            "[hold] control":                   Key("ctrl:down"),
            "release control":                  Key("ctrl:up"),
+   		   "[hold] (alternative|alt|meta)":    Key("alt:down"),
+		   "release (alternative|alt|meta)":   Key("alt:up"),
            "release [all]":                    release,
-
+		   		   
            "say <text>":                       release + Text("%(text)s"),
            "mimic <text>":                     release + Mimic(extra="text"),
 		   
@@ -93,7 +95,7 @@ cmd.map = {
 			"mike": Key("m"),
 			"november": Key("n"),
 			"oscar": Key("o"),
-			"pappa": Key("p"),
+			"papa": Key("p"),
 			"quebec": Key("q"),
 			"romeo": Key("r"),
 			"sierra": Key("s"),
@@ -139,7 +141,7 @@ cmd.map = {
 			
 			
 			"plus": Key("plus"),
-			"(minus|dash|hyphen)": Key("minus"),
+			"(minus|dash|hyphen|hive)": Key("minus"),
 			"(comma|com|cam)": Key("comma"),
 			"(colon|coal)": Key("colon"),
 			"(equals|equal|eeks)": Key("equal"),
@@ -162,6 +164,7 @@ cmd.map = {
 			"tilde": Key("tilde"),
 			"(underscore|score)": Key("underscore"),
 			"(single [quote]|sing)": Key("singlequote"),
+			"([back] tick|bing)": Key("backtick"),
 			"(dollar|doll)": Key("dollar"),
 			"(caret|carrot|crat)": Key("caret"),
 			"(ampersand|amper|and sign)": Key("ampersand"),
@@ -233,3 +236,11 @@ def format_java_method(dictation):
     text = str(dictation)
     words = text.split(" ")
     return words[0] + "".join(w.capitalize() for w in words[1:])
+	
+# Format: some-words
+def format_dashes(dictation):
+    """ (hive|dashes) <dictation> """
+    text = str(dictation)
+    words = text.split(" ")	
+    return "-".join(words)
+

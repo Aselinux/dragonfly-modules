@@ -7,6 +7,7 @@
 # Pull in all of Dragonfly's action objects so that we can use them here.
 
 from dragonfly import *
+import os
 
 
 #---------------------------------------------------------------------------
@@ -26,8 +27,8 @@ release = Key("shift:up, ctrl:up, alt:up")
 cmd.map = {
            # Spoken-form    ->    ->    ->     Action object
 
-           "(up|goop) [<n>]":                  Key("up:%(n)d"),
-           "(down|gnaith|goon|gown) [<n>]":                       Key("down:%(n)d"),
+           "(up) [<n>]":                  Key("up:%(n)d"),
+           "(down) [<n>]":                       Key("down:%(n)d"),
            "left [<n>]":                       Key("left:%(n)d"),
            "right [<n>]":                      Key("right:%(n)d"),
            "page up [<n>]":                    Key("pgup:%(n)d"),
@@ -186,8 +187,8 @@ cmd.map = {
 			"pret [<n>]": Key("c-pgup/5:%(n)d"),
 			"net [<n>]": Key("c-pgdown/5:%(n)d"),
 			"clote": Key("c-w"),
-			"meta left|back":    Key("a-left"),
-			"meta right|forward":    Key("a-right"),
+			"back":    Key("a-left"),
+			"forward":    Key("a-right"),
 			
 			# tmux onfiguration ( Tmax )
 			"Tmax":    Key("c-b"),
@@ -202,7 +203,10 @@ cmd.map = {
 			# bash commands
 			"grep": Text("grep -iE ''") + Key('left'),
 			
-			
+			# Windows control
+			"win flip": Key("win:down, tab/25:3, win:up"),
+			"win show": Key("control:down, win:down, tab:down") + Key("control:up, win:up, tab:up"),
+
           }
 
 

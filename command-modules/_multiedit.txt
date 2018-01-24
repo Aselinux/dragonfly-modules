@@ -187,7 +187,7 @@ cmd.map = {
 			"pret [<n>]": Key("c-pgup/5:%(n)d"),
 			"net [<n>]": Key("c-pgdown/5:%(n)d"),
 			"clote": Key("c-w"),
-			"back":    Key("a-left"),
+			"backward":    Key("a-left"),
 			"forward":    Key("a-right"),
 			
 			# tmux onfiguration ( Tmax )

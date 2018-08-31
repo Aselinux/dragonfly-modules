@@ -466,3 +466,4 @@ def unload():
     global grammar
     if grammar: grammar.unload()
     grammar = None
+

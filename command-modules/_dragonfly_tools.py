@@ -56,7 +56,7 @@ try:
 except ImportError:
     pass
 
-import os, os.path
+import os
 from dragonfly import (Grammar, CompoundRule, DictList, DictListRef,
                        MappingRule, Mimic, Key, FocusWindow,
                        Window, Config, Section, Item)
@@ -189,12 +189,29 @@ grammar.add_rule(UpdateDragonflyRule())
 
 #---------------------------------------------------------------------------
 
-class StaticRule(MappingRule):
+#class StaticRule(MappingRule):
+#    mapping = {
+#               config.lang.reload_natlink: FocusWindow("natspeak", "Messages from Python Macros") + Key("a-f, r"),
+#              }
+class StaticRule(CompoundRule):
+    spec = config.lang.reload_natlink
+     
+    def _process_recognition(self, node, extras):
+        print "reload natlink: This has been commmented out because it gives an error."
+#        Reloading Python subsystem...
+# some error occurred
+#Traceback (most recent call last):
+#  File "C:\NatLink\NatLink\MacroSystem\core\natlinkmain.py", line 146, in <module>
+#    import natlinkstatus    # for extracting status info (QH)
+#  File "C:\NatLink\NatLink\MacroSystem\core\natlinkstatus.py", line 180, in <module>
+#    import RegistryDict, natlinkcorefunctions
+#  File "C:\NatLink\NatLink\MacroSystem\core\natlinkcorefunctions.py", line 31, in <module>
+#    from win32com.shell import shell, shellcon
+#  File "C:\Python27\lib\site-packages\win32com\__init__.py", line 82, in <module>
+#    SetupEnvironment()
+#  File "<string>", line 3, in __init__
+#TypeError: 'NoneType' object is not callable
 
-    mapping = {
-               config.lang.reload_natlink: FocusWindow("natspeak", "Messages from Python Macros")
-                                            + Key("a-f, r"),
-              }
 
 grammar.add_rule(StaticRule())
 

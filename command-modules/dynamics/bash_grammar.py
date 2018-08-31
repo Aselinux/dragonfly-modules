@@ -3,13 +3,9 @@ from dragonfly import (
     MappingRule,
     IntegerRef,
     Grammar,
-    Dictation
-)
-
-from lib.dynamic_aenea import (
-    GlobalDynamicContext,
+    Dictation,
     Key,
-    Text,
+    Text
 )
 
 import lib.format

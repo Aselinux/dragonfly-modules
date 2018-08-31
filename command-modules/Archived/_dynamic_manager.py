@@ -25,9 +25,6 @@ from dragonfly import (
     Grammar
 )
 
-import lib.config
-config = lib.config.get_config()
-
 import lib.sound as sound
 import dynamics
 
@@ -110,7 +107,6 @@ def disable_incompatible_modules(enableModule):
 
 def import_dynamic_modules():
     global moduleMapping
-    config = lib.config.get_config()
     path = dynamics.__path__
     prefix = dynamics.__name__ + "."
     print("Loading dynamic grammar modules:")

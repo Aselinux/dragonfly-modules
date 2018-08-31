@@ -26,10 +26,6 @@ from dragonfly import (
     CompoundRule,
     AppContext,
     Mouse,
-)
-
-from lib.dynamic_aenea import (
-    GlobalDynamicContext,
     Key,
     Text,
 )
@@ -43,9 +39,7 @@ if not 'Control_R' in typeables:
 if not 'semicolon' in typeables:
     typeables["semicolon"] = keyboard.get_typeable(char=';')
 
-import lib.config
-config = lib.config.get_config()
-
+    
 import lib.sound as sound
 from lib.format import (
     camel_case_count,
@@ -78,52 +72,28 @@ def cancel_and_sleep(text=None, text2=None):
     sound.play(sound.SND_DING)
     setMicState("sleeping")
 
+# this functionaly is already in _dragonfly_tools.py
+#def reload_natlink():
+#    """Reloads Natlink and custom Python modules."""
+#    win = Window.get_foreground()
+#    FocusWindow(executable="natspeak",
+#        title="Messages from Python Macros").execute()
+#    Pause("10").execute()
+#    Key("a-f, r").execute()
+#    Pause("10").execute()
+#    win.set_foreground()
 
-def reload_natlink():
-    """Reloads Natlink and custom Python modules."""
-    win = Window.get_foreground()
-    FocusWindow(executable="natspeak",
-        title="Messages from Python Macros").execute()
-    Pause("10").execute()
-    Key("a-f, r").execute()
-    Pause("10").execute()
-    win.set_foreground()
 
-
-# For repeating of characters.
-#specialCharMap = {
-#    "(bar|vertical bar|pipe)": "|",
-#    "(dash|minus|hyphen)": "-",
-#    "(dot|period)": ".",
-#    "comma": ",",
-#    "backslash": "\\",
-#    "underscore": "_",
-#    "(star|asterisk)": "*",
-#    "colon": ":",
-#    "(semicolon|semi-colon)": ";",
-#    "at": "@",
-#    "[double] quote": '"',
-#    "single quote": "'",
-#    "hash": "#",
-#    "dollar": "$",
-#    "percent": "%",
-#    "and": "&",
-#    "slash": "/",
-#    "equal": "=",
-#    "plus": "+",
-#    "space": " "
-#}
 specialCharMap = {
     "(bar|vertical bar)": "|",
     "(pipe)": " | ",
     "(dash|minus|hyphen)": "-",
-    "(dot|period|point|dit|doot)": ".",
+    "(dotty|period|point|dit|doot)": ".", # replaced the utterance "dot" with "dotty" as it was very frequently getting recognised  when I say the utterance Delta/dell for d
     "(comma|commy|comy)": ",",  # comma not working as a command, so I added alternatives
     "backslash": "\\",
-    "([forward]slash|lash|Flash)": "/", # slash and "forward slash" is not working as a command, so removed space and added alternatives
+    "([forward]slash)": "/",
     "(underscore)": "_",
     "(star|asterisk)": "*",
-    #"(colon|colly|coal)": ":",
     "(colon|colly)": ":",
     "(semicolon|semi)": ";",
     "at (sign|symbol)|atte": "@", # "at sign"  doesn't work, "at" on its own not a good idea
@@ -133,7 +103,8 @@ specialCharMap = {
     "dollar|dolly": "$", # i just liked dolly as well
     "percent|centy": "%", # just going with the flow
     "and (sign|symbol)|ampersand|sandy": "&",  # ampersand doesn't seem to work, and symbol or sign seems heavy to recognize, sandy is going with the flow
-    "(equal|equals|eeks)": "=",
+#    "(equal|equals|eeks)": "=",
+    "(equal|equals)": "=", # using "eeks" for e instead of the problematic echo|etch|eck
     "plus [sign]": "+",
     "space": " ",
     # adding missing characters
@@ -155,7 +126,8 @@ specialCharMap = {
 
 # need the name for a character when using the Key()function, something like modifierMap vs singleModifierMap
 specialCharNameMap = {
-    "(dot|period|point|dit|doot)": "dot",
+#    "(dot|period|point|dit|doot)": "dot",
+    "(dotty|period|point|dit|doot)": "dot",
 }
 
 # Modifiers for the press-command.
@@ -174,66 +146,64 @@ singleModifierMap = {
     "super": "win",
 }
 
-#letterMap = {
-#    "(A|alpha)": "a",
-#    "(B|bravo) ": "b",
-#    "(C|charlie) ": "c",
-#    "(D|delta) ": "d",
-#    "(E|echo) ": "e",
-#    "(F|foxtrot) ": "f",
-#    "(G|golf) ": "g",
-#    "(H|hotel) ": "h",
-#    "(I|india|indigo) ": "i",
-#    "(J|juliet) ": "j",
-#    "(K|kilo) ": "k",
-#    "(L|lima) ": "l",
-#    "(M|mike) ": "m",
-#    "(N|november) ": "n",
-#    "(O|oscar) ": "o",
-#    "(P|papa|poppa) ": "p",
-#    "(Q|quebec|quiche) ": "q",
-#    "(R|romeo) ": "r",
-#    "(S|sierra) ": "s",
-#    "(T|tango) ": "t",
-#    "(U|uniform) ": "u",
-#    "(V|victor) ": "v",
-#    "(W|whiskey) ": "w",
-#    "(X|x-ray) ": "x",
-#    "(Y|yankee) ": "y",
-#    "(Z|zulu) ": "z",
-#}
 letterMap = {
-        "(arch|alpha|alph|elf)": "a",
-        "(bravo|brav|brov)": "b",
-        "(charlie|char)": "c",
-        "delta": "d",
-        "echo|eco|etch|eck": "e",
-        "(foxtrot|fox|fomp)": "f",
-        "(golf)": "g",
-        "(hotel|hot|hark)": "h",
-        "(India|indigo|ice)": "i",
-        "(Juliet|Julie|jewel)": "j",
-        "(kilo|keel|kill)": "k",
-        "(lima|limb)": "l",
-        "(Mike|Mick)": "m",
-        "(November|nov|nova)": "n",
-        "(oscar|osh)": "o",
-        "(papa|pup|puppy)": "p",
-        "(Quebec|queen)": "q",
-        "(Romeo|Rome|rom)": "r",
-        "(Sierra|souk)": "s",
-        "(Tango|teek)": "t",
-        "(uniform|uni)": "u",
-        "(Victor|vic)": "v",
-        "(whiskey|whis|whisk|womp)": "w",
-        "(x-ray|ex)": "x",
-        "(Yankee|yank|yang)": "y",
-        "(Zulu|zoo)": "z",
+#        "(arch|alpha|alph|elf)": "a",
+        "arch": "a",
+#        "(bravo|brav|brov)": "b",
+        "brov": "b",
+#        "(charlie|char)": "c",
+        "char": "c",
+#        "delta": "d",
+        "dell": "d",
+#        "echo|eco|etch|eck": "e",
+        "eeks|echo": "e",
+#        "(foxtrot|fox|fomp)": "f",
+        "fox|fomp": "f",
+#        "(golf|goal)": "g",
+        "golf|goof": "g",
+#        "(hotel|hot|hark)": "h",
+        "hark": "h",
+#        "(India|indigo|ice)": "i",
+        "ice": "i",
+#        "(Juliet|Julie|jewel)": "j",
+        "Julie": "j",
+#        "(kilo|keel|kill)": "k",
+        "keel": "k",
+#        "(lima|limb)": "l",
+        "limb": "l",
+#        "(Mike|Mick)": "m",
+        "Mick": "m",
+#        "(November|nov|nova)": "n",
+        "nova": "n",
+#        "(oscar|osh)": "o",
+        "owsh": "o", # pronounce it as a-w-sh o-u-sh o-sh
+#        "(papa|pup|puppy)": "p",
+        "pup": "p",
+#        "(Quebec|queen)": "q",
+        "queen": "q",
+#        "(Romeo|Rome|rom)": "r",
+        "rom": "r",
+#        "(Sierra|souk)": "s",
+        "souk": "s",
+#        "(Tango|tang|teek)": "t",
+        "teek": "t",
+#        "(uniform|uni)": "u",
+        "uni": "u",
+#        "(Victor|vic)": "v",
+        "vic": "v",
+#        "(whiskey|whis|whisk|womp)": "w",
+        "whis": "w",
+#        "(x-ray|ex)": "x",
+        "x-ray": "x",
+#        "(Yankee|yank|yang)": "y",
+        "yank": "y",
+#        "(Zulu|zoo)": "z",
+        "Zulu": "z",
 }
 
 numberMap = {
     "zero": "0",
-    "one": "1", # adding wan, because, saying the word one is not working, and I have to say "type or press one" !?
+    "one": "1", # this is not getting recognised and I have to say press one
     "two": "2",
     "three": "3",
     "four": "4",
@@ -279,7 +249,7 @@ pressKeyMap = {}
 pressKeyMap.update(letterMap)
 pressKeyMap.update(numberMap)
 pressKeyMap.update(controlKeyMap)
-pressKeyMap.update(functionKeyMap)
+#pressKeyMap.update(functionKeyMap)
 
 
 formatMap = {
@@ -304,7 +274,7 @@ formatMap = {
     "uppercase dotify": [ft.dotify, ft.upperCase],
     "dotify lowercase": [ft.dotify, ft.lowerCase],
     "dotify uppercase": [ft.dotify, ft.upperCase],
-    "say|dictate": ft.spokenForm,
+    "say": ft.spokenForm,
     "environment variable": [ft.snakeCase, ft.upperCase],
 }
 
@@ -452,7 +422,7 @@ def paste_command():
     Key("c-v/3").execute()
 
 
-grammarCfg = Config("multi edit")
+grammarCfg = Config("keyboard")
 grammarCfg.cmd = Section("Language section")
 grammarCfg.cmd.map = Item(
     {
@@ -485,9 +455,9 @@ grammarCfg.cmd.map = Item(
         "(space|ace|spooce) [<n>]": release + Key("space:%(n)d"),
         "(enter|slap|loon|shock) [<n>]": release + Key("enter:%(n)d"),
         "(tab|tabby|tub|tubby) [<n>]": Key("tab:%(n)d"),
-        "(delete|chuck) [<n>]": Key("del/3:%(n)d"),
-        "(delete|chuck) [this] line": Key("home, s-end, del"),  # @IgnorePep8
-        "(backspace|chook|crack) [<n>]": release + Key("backspace:%(n)d"),
+        "(delete|crack) [<n>]": Key("del/3:%(n)d"),
+        "(delete|crack) [this] line": Key("home, s-end, del"),  # @IgnorePep8
+        "(backspace|chook) [<n>]": release + Key("backspace:%(n)d"),
         "(application key|context menu)": release + Key("apps/3"),
         "win key": release + Key("win/3"),
         "paste [that]": Function(paste_command),
@@ -566,7 +536,7 @@ grammarCfg.cmd.map = Item(
         # SetupEnvironment()
         # File "<string>", line 3, in __init__
         # TypeError: 'NoneType' object is not callable
-        "reload Natlink": Function(reload_natlink),
+        #"reload Natlink": Function(reload_natlink),
     },
     namespace={
         "Key": Key,
@@ -607,21 +577,52 @@ grammarCfg.cmd.map.update({
     })
 
 
-if config.get("aenea.enabled") == True:
-    # Keypresses, to get that working better in Linux.
-    grammarCfg.cmd.map.update({
-        "press <modifierSingle>": Key("%(modifierSingle)s"),
-        "press <modifier1> <pressKey> [<n>]": Key("%(modifier1)s-%(pressKey)s:%(n)d"),  # @IgnorePep8
-        "press <modifier1> <modifier2> <pressKey> [<n>]": Key("%(modifier1)s%(modifier2)s-%(pressKey)s:%(n)d"),  # @IgnorePep8
-    })
-else: # this "else" section is basically the full VOICE KEYBOARD, when running on standalone windows machine not using aenea client/server proxy features, win7-64 dragon15.3(official install of 15 then updated with sp 15.3) python2.7.14-32(installed with exe) pywin32 natlink-victor(installed with exe) dragonfly-0.6.6b1-py2.7.egg(installed with setup.py or pip) aenea-1.0(installed with setup.py), all key combinations working (like ctrl alt tango, super 1, super d, ctrl left, ctrl shift right, ctrl shift home, ctrl shift left 10 times, etc)
-    grammarCfg.cmd.map.update({
-        "[press] <pressKey>": Key("%(pressKey)s"),  # @IgnorePep8 # enabling pressKey = pressKeyMap = (letterMap), (numberMap), (controlKeyMap), (functionKeyMap)
-        "[press] <char>":     Text("%(char)s"),  # @IgnorePep8 # enabling char/specialCharMap
-        "[press] <modifier1> <pressKey>": Key("%(modifier1)s-%(pressKey)s"),  # @IgnorePep8 # This did not seem to be  necessary when I tested earlier for combinations like super+right or super+left or super+d or super+1 or super+5 etc to work
-        "[press] <modifier1> <modifier2> <pressKey>": Key("%(modifier1)s%(modifier2)s-%(pressKey)s"),  # @IgnorePep8 # this did not seem to be necessary when I tested earlier for combinations like control+alt+t to open a new terminal in X11 on Ubuntu Linux
-        "[press] <modifier1> <charName>": Key("%(modifier1)s-%(charName)s"),  # @IgnorePep8 # I discovered this missing when I was using meta+dot (=escape followed/with dot) to repeat the last commandline argument from the previous command in bash
-    })
+grammarCfg.cmd.map.update({
+    "[press] <pressKey>": Key("%(pressKey)s"),  # @IgnorePep8 # enabling pressKey = pressKeyMap = (letterMap), (numberMap), (controlKeyMap), (functionKeyMap)
+    "[press] <char>":     Text("%(char)s"),  # @IgnorePep8 # enabling char/specialCharMap
+    "[press] <modifier1> <pressKey>": Key("%(modifier1)s-%(pressKey)s"),  # @IgnorePep8 # This did not seem to be  necessary when I tested earlier for combinations like super+right or super+left or super+d or super+1 or super+5 etc to work
+    "[press] <modifier1> <modifier2> <pressKey>": Key("%(modifier1)s%(modifier2)s-%(pressKey)s"),  # @IgnorePep8 # this did not seem to be necessary when I tested earlier for combinations like control+alt+t to open a new terminal in X11 on Ubuntu Linux
+    "[press] <modifier1> <charName>": Key("%(modifier1)s-%(charName)s"),  # @IgnorePep8 # I discovered this missing when I was using meta+dot (=escape followed/with dot) to repeat the last commandline argument from the previous command in bash
+})
+
+
+
+
+# I couldn't get round this error
+#  File "C:\Users\uc222343\Documents\GitHub\dragonfly-modules\command-modules\_dragonfly_tools.py", line 102, in _process_begin
+#    if not os.path.isfile(c.config_path):
+#  File "C:\Python27\Lib\genericpath.py", line 37, in isfile
+#    st = os.stat(path)
+#TypeError: coercing to Unicode: need string or buffer, NoneType found
+# until I added this
+config = grammarCfg
+namespace = config.load()
+
+#---------------------------------------------------------------------------
+# Here we prepare the list of formatting functions from the config file.
+
+# Retrieve text-formatting functions from this module's config file.
+#  Each of these functions must have a name that starts with "format_".
+format_functions = {}
+if namespace:
+    for name, function in namespace.items():
+     if name.startswith("format_") and callable(function):
+        spoken_form = function.__doc__.strip()
+
+        # We wrap generation of the Function action in a function so
+        #  that its *function* variable will be local.  Otherwise it
+        #  would change during the next iteration of the namespace loop.
+        def wrap_function(function):
+            def _function(dictation):
+                formatted_text = function(dictation)
+                Text(formatted_text).execute()
+            return Function(_function)
+
+        action = wrap_function(function)
+        format_functions[spoken_form] = action
+#---------------------------------------------------------------------------
+
+
 
 
 class KeystrokeRule(MappingRule):
@@ -673,7 +674,7 @@ class RepeatRule(CompoundRule):
                 action.execute()
         release.execute()
 
-grammar = Grammar("Generic edit", context=GlobalDynamicContext())
+grammar = Grammar("keyboard", context=None)
 grammar.add_rule(RepeatRule())  # Add the top-level rule.
 grammar.load()  # Load the grammar.
 

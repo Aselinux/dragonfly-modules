@@ -114,3 +114,7 @@ def unload():
     global grammar
     if grammar: grammar.unload()
     grammar = None
+
+#config = Config("taskbar")
+#config.generate_config_file()
+#config.load()

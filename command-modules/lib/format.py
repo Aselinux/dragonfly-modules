@@ -3,44 +3,8 @@ import re
 from dragonfly import (
     Clipboard,
     Pause,
+    Text
 )
-
-from lib.dynamic_aenea import (
-    Key,
-    Text,
-)
-
-from lib.text import specialCharacterTranslations, specialCharacterTranslationsRe
-
-
-letterMap = {
-    "A\\letter": "alpha",
-    "B\\letter": "bravo",
-    "C\\letter": "charlie",
-    "D\\letter": "delta",
-    "E\\letter": "echo",
-    "F\\letter": "foxtrot",
-    "G\\letter": "golf",
-    "H\\letter": "hotel",
-    "I\\letter": "india",
-    "J\\letter": "juliet",
-    "K\\letter": "kilo",
-    "L\\letter": "lima",
-    "M\\letter": "mike",
-    "N\\letter": "november",
-    "O\\letter": "oscar",
-    "P\\letter": "papa",
-    "Q\\letter": "quebec",
-    "R\\letter": "romeo",
-    "S\\letter": "sierra",
-    "T\\letter": "tango",
-    "U\\letter": "uniform",
-    "V\\letter": "victor",
-    "W\\letter": "whiskey",
-    "X\\letter": "x-ray",
-    "Y\\letter": "yankee",
-    "Z\\letter": "zulu",
-}
 
 
 class FormatTypes:
@@ -57,6 +21,7 @@ class FormatTypes:
 
 
 def strip_dragon_info(text):
+    print 'strip_dragon_info ASEL'
     newWords = []
     words = str(text).split(" ")
     for word in words:
@@ -70,6 +35,8 @@ def strip_dragon_info(text):
 
 
 def extract_dragon_info(text):
+    print 'extract_dragon_info ASEL'
+    print str(text)
     newWords = []
     words = str(text).split(" ")
     for word in words:
@@ -86,6 +53,7 @@ def extract_dragon_info(text):
 
 
 def format_camel_case(text):
+    print 'format_camel_case ASEL'
     newText = ""
     words = strip_dragon_info(text)
     for word in words:
@@ -173,8 +141,11 @@ def format_lower_case(text):
 
 
 def format_spoken_form(text):
+    print 'format_spoken_form ASEL'
+    print ''
     newText = ""
     words = extract_dragon_info(text)
+    print str(words)
     for word in words:
         if newText != "":
             word = " " + word
@@ -197,6 +168,8 @@ FORMAT_TYPES_MAP = {
 
 
 def format_text(text, formatType=None):
+    print 'format_text ASEL'
+    return
     if formatType:
         if type(formatType) != type([]):
             formatType = [formatType]
@@ -211,6 +184,7 @@ def format_text(text, formatType=None):
             method = FORMAT_TYPES_MAP[value]
             result = method(result)
         Text("%(text)s").execute({"text": result})
+
 
 
 def camel_case_text(text):

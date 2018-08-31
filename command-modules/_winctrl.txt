@@ -1,0 +1,86 @@
+#
+                    # Dragonfly config for Window control
+#
+
+#--- Language section ------------------------------------------------------
+
+lang.name_win = 'name (window | win) <name>'
+                    # Command to give the foreground window a name;
+                    #  must contain the <name> extra.
+                    # Default: 'name (window | win) <name>'
+
+lang.focus_win = 'focus <win_selector> | bring <win_selector> to [the] (top | foreground)'
+                    # Command to bring a named window to the
+                    #  foreground.
+                    # Default: 'focus <win_selector> | bring
+                    #  <win_selector> to [the] (top | foreground)'
+
+lang.focus_title = 'focus title <text>'
+                    # Command to bring a window with the given title
+                    #  to the foreground.
+                    # Default: 'focus title <text>'
+
+lang.translate_win = 'place <win_selector> <position> [on <mon_selector>]'
+                    # Command to translate a window.
+                    # Default: 'place <win_selector> <position> [on
+                    #  <mon_selector>]'
+
+lang.resize_win = 'place <win_selector> [from] <position> [to] <position> [on <mon_selector>]'
+                    # Command to move and resize a window.
+                    # Default: 'place <win_selector> [from] <position>
+                    #  [to] <position> [on <mon_selector>]'
+
+lang.stretch_win = 'stretch <win_selector> [to] <position>'
+                    # Command to stretch a window.
+                    # Default: 'stretch <win_selector> [to]
+                    #  <position>'
+
+lang.place_win_fraction = 'place <win_selector> <position> <screen_fraction>'
+                    # Command to place a window according to a screen
+                    #  fraction.
+                    # Default: 'place <win_selector> <position>
+                    #  <screen_fraction>'
+
+lang.win_selector = 'window | win | [window] <win_names>'
+                    # Partial command for specifying a window; must
+                    #  contain the <win_names> extra.
+                    # Default: 'window | win | [window] <win_names>'
+
+lang.mon_selector = '(this | current) monitor | [monitor] <mon_names>'
+                    # Partial command for specifying a monitor; must
+                    #  contain the <mon_names> extra.
+                    # Default: '(this | current) monitor | [monitor]
+                    #  <mon_names>'
+
+lang.left = 'left'
+                    # Word for left side of monitor.
+                    # Default: 'left'
+
+lang.right = 'right'
+                    # Word for right side of monitor.
+                    # Default: 'right'
+
+lang.top = 'top'
+                    # Word for top side of monitor.
+                    # Default: 'top'
+
+lang.bottom = 'bottom'
+                    # Word for bottom side of monitor.
+                    # Default: 'bottom'
+
+lang.screen_fractions = {'quarter': 0.25, 'third': 0.33, 'half': 0.5}
+                    # Fractions of the screen
+                    # Default: {'quarter': 0.25, 'third': 0.33,
+                    #  'half': 0.5}
+
+#--- Settings section ------------------------------------------------------
+
+settings.grid = 10
+                    # The number of grid divisions a monitor is
+                    #  divided up into when placing windows.
+                    # Default: 10
+
+settings.defaults = {'fire': ('firefox', None)}
+                    # Default window names.  Maps spoken-forms to
+                    #  (executable, title) pairs.
+                    # Default: {'fire': ('firefox', None)}

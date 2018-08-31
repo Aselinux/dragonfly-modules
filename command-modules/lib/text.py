@@ -1,15 +1,8 @@
 import re
-
 from dragonfly.actions.keyboard import Keyboard
-
-from lib.dynamic_aenea import (
-    should_send_to_aenea,
-    Text,
-)
-
 import lib.format
-import lib.config
-config = lib.config.get_config()
+from dragonfly import Text
+
 
 specialCharacterTranslations = {
     "?\\question-mark": "?",
@@ -46,6 +39,7 @@ specialCharacterTranslations = {
 }
 
 specialCharacterTranslationsRe = re.compile('|'.join(re.escape(key) for key in specialCharacterTranslations.keys()))
+
 
 class SCText(Text):  # Special Characters Text.
     def __init__(self, spec=None, static=False, pause=0.02, autofmt=False):

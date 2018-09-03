@@ -108,11 +108,11 @@ def kick_dragon(text=None, text2=None):
     
     from natlink import setMicState
     import lib.sound as sound
-  
-    print("* Dragon mic Sleeping *")
+    
+    print("** saving notepad, reloading by mic sleeping then on **")
+    Key("c-s").execute()
     setMicState("sleeping")
     setMicState("on")
-    print("* Dragon mic On *")
     sound.play(sound.SND_ERROR)
     
 
@@ -155,19 +155,18 @@ config.cmd.map    = Item(
      # "backspace [<n>]":                  release + Key("backspace:%(n)d"),
      # "pop up":                           release + Key("apps"),
      
-    # holding and releasing control keys, if they were held down by a previous command, these might be a repetition and might remove them later
-    "hold shift":                Key("shift:down"),
-    "release shift":             Key("shift:up"),
-    "hold control":              Key("ctrl:down"),
-    "release control":           Key("ctrl:up"),
-    "hold (alternative|alt|meta|command|diamond)": Key("ctrl:down"),
-    "release (alternative|alt|meta|command|diamond)": Key("ctrl:up"),
-    "hold super":                Key("ctrl:down"),
-    "release super":             Key("ctrl:up"),
-    "release [all]":             release,
+    # all these have moved into controlKeyMap
+    # no quite sure of their benefit
+     # "[(hold|press)] alt": Key("alt:down/3"),
+     # "release alt": Key("alt:up"),
+     # "[(hold|press)] shift": Key("shift:down/3"),
+     # "release shift": Key("shift:up"),
+     # "[(hold|press)] control": Key("ctrl:down/3"),
+     # "release control": Key("ctrl:up"),
+     "release [all]": release,
     
     # normal dictation while in command mode, and amongst all the other commands so ccr continuous command recognition applies
-     "say <text>":               release + Text("%(text)s"),
+     "(say|dictate) <text>":               release + Text("%(text)s"),
      "mimic <text>":             release + Mimic(extra="text"),
      
      # some dragon control stuff, i think i like to use at the moment
@@ -186,12 +185,26 @@ config.cmd.map    = Item(
      "delete [<n> | this] (line|lines)": release + Key("home, s-down:%(n)d, del"),
      # nice ones, Short-talk word jumps and deletes
      "fomble [<n>]":    Key("c-right/5:%(n)d"),
+     "(sky|shift) fomble [<n>]":    Key("shift:down/3") + Key("c-right/5:%(n)d"),
      "kimble [<n>]":    Key("c-del/5:%(n)d"),
      "bamble [<n>]":    Key("c-left/5:%(n)d"),
+     "(sky|shift) bamble [<n>]":    Key("shift:down/3") + Key("c-left/5:%(n)d"),
      "dumbbell [<n>]":  Key("c-backspace/5:%(n)d"),
      # jump top or bottom of page, works in browsers, editors, email, etc, like dragons default commands scroll up and scroll down
      "(doc home|north)": Key("c-home"),
      "(doc end|south)":  Key("c-end"),
+     # Closures.
+     "angle brackets": Key("langle, rangle, left/3"),
+     "brackets": Key("lbracket, rbracket, left/3"),
+     "braces": Key("lbrace, rbrace, left/3"),
+     "parens": Key("lparen, rparen, left/3"),
+     "quotes": Key("dquote/3, dquote/3, left/3"),
+     "(single-quotes|singles)": Key("squote, squote, left/3"),
+     # undo, redo
+     "undo": release + Key("c-z/3"),
+     "undo <n> [times]": release + Key("c-z/3:%(n)d"),
+     "redo": release + Key("c-y/3"),
+     "redo <n> [times]": release + Key("c-y/3:%(n)d"),
 
      
     # tab control, in browser, notepad, file explorer, gnome-shell, etc
@@ -258,14 +271,14 @@ controlKeyMap = {
     "(enter|return|slap|loon|shock)": "enter",
     "(escape|scape|act|cancel)": "escape",
     "(tab|tub|tabby|tubby|jump)": "tab",
-    "(context menu|pop up|menu key|application key)": "apps",
+    "(context-menu|pop up|menu key|application key)": "apps",
     "(delete|crack)": "del",
     "(backspace|chook)": "backspace",
 }
 
 numberKeyMap = {
     "zero": "0",
-    "(one|uno)": "1", # "one" !!?? this is not getting recognized and I have to say press one, just added "uno" let's see how that works
+    "(one|Ono)": "1", # "one" !!?? this is not getting recognized and I have to say press one, just added "Ono" let's see how that works
     "two": "2",
     "three": "3",
     "four": "4",
@@ -333,7 +346,7 @@ letterKeyMap = {
 #        "(Mike|Mick)": "m",
     "Mick": "m",
 #        "(November|nov|nova)": "n",
-    "nova": "n",
+    "nov": "n",
 #        "(oscar|osh)": "o",
     "owsh": "o", # pronounce it as a-w-sh o-u-sh o-sh
 #        "(papa|pup|puppy)": "p",
@@ -374,25 +387,23 @@ symbolKeyMap = {
     "at (sign|symbol)|atte": "at", #"@", # "at sign"  doesn't work, "at" on its own not a good idea
     "[double] quote": "doublequote", #'"',
     "(single [quote]|sing)": "singlequote", #"'",
-    "hash": "#",
-    "dollar|dolly": "$", # i just liked dolly as well
-    "percent|centy": "%", # just going with the flow
-    "and (sign|symbol)|ampersand|sandy": "&",  # ampersand doesn't seem to work, and symbol or sign seems heavy to recognize, sandy is going with the flow
+    "hash": "hash", #"#",
+    "dollar|dolly": "dollar", #"$", # i just liked dolly as well
+    "percent|centy": "percent", #"%", # just going with the flow
+    "and (sign|symbol)|ampersand|sandy": "percent", #"&",  # ampersand doesn't seem to work, and symbol or sign seems heavy to recognize, sandy is going with the flow
 #    "(equal|equals|eeks)": "=",
-    "(equal|equals)": "=", # using "eeks" for e instead of the problematic echo|etch|eck
-    "plus [sign]": "+",
-    "space": " ",
-    # adding missing characters
-    "(less than|lang|langle)": "<",
-    "(greater than|rang|rangle)": ">",
-    "(lape|len)": '(',
-    "(rape|ren)": ")",
-    "lace": "{",
-    "race": "}",
-    "lack": "[",
-    "rack": "]",
-    # more missing symbols
-    "(question [mark]|quest)": "?",
+    "(equal|equals)": "equals", #"=", # using "eeks" for e instead of the problematic echo|etch|eck
+    "plus [sign]": "plus", #"+",
+    "space": "space", #" ",
+    "(less than|lang|langle)": "langle", #"<",
+    "(greater than|rang|rangle)": "rangle", #">",
+    "(lape|len)": "lparen", #'(',
+    "(rape|ren)": "rparen", #")",
+    "lace": "lbrace", #"{",
+    "race": "rbrace", #"}",
+    "lack": "lbracket", #"[",
+    "rack": "rbracket", #"]",
+    "(question|question mark|quest)": "question", #"?",
     "(back tick)": "`", # remove tick confused with teek and bing not used
     "(caret|carrot)": "^",
     "tilde": "~",
@@ -482,6 +493,9 @@ config.cmd.map.update({
     # this seems too much, so categorizing like above to only what i know i need and keeping it simpler    
     #"[press] <modifier1> <modifier2> <pressKey>": Key("%(modifier1)s%(modifier2)s-%(pressKey)s"),  # @IgnorePep8 # this did not seem to be necessary when I tested earlier for combinations like control+alt+t to open a new terminal in X11 on Ubuntu Linux
     "[press] <modifier1> <modifier2> <letterKey>": Key("%(modifier1)s%(modifier2)s-%(letterKey)s"),  # @IgnorePep8
+    
+    "[press] <modifier1> <modifier2> <controlKey>": Key("%(modifier1)s%(modifier2)s-%(controlKey)s"),  # @IgnorePep8
+    #
 })
 
 #this generates a config file, in this directory, _keyboard.txt, but needs manual fixing, just enable this line once then comment it out.

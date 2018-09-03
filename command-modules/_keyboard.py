@@ -460,6 +460,9 @@ config.cmd.map.update({
     # like super up for maximize
     # like control left or right to jump words
     "[press] <modifier1> <controlKey>": Key("%(modifier1)s-%(controlKey)s"),  # @IgnorePep8
+    # tried the above with repetition but it doesn't work
+    #"[press] <modifier1> <controlKey> [<n>]": Key("%(modifier1)s-%(controlKey)s:%(n)d"),
+    # but you can't say "shift|sky up|gown [repeat] 3 times", as defined in the (class RepeatRule(CompoundRule))
     
     # might simplify this later, and use only Super out of the 4 modifiers, use only for example super + number as other uses are probably not needed
     # like super 1 or super 2 to choose an open applicaiton from the task bar

@@ -56,7 +56,7 @@ try:
 except ImportError:
     pass
 
-import os, os.path
+import os, time
 from dragonfly import (Grammar, CompoundRule, DictList, DictListRef,
                        MappingRule, Mimic, Key, FocusWindow,
                        Window, Config, Section, Item)
@@ -86,6 +86,14 @@ config_map = DictList("config_map")
 
 
 #---------------------------------------------------------------------------
+
+def show_natlink_messages_window(duration=3, msg="No message given to show_natlink_messages_window"):
+        # bring the natlink messages window to focus/front to see what is being printed
+        FocusWindow("natspeak", "Messages from Python Macros").execute()
+        print(msg)
+        time.sleep(duration)
+        Key("alt:down, tab:down/5, alt:up").execute()
+
 
 class ConfigManagerGrammar(Grammar):
 
@@ -143,8 +151,7 @@ class EditConfigRule(CompoundRule):
             try:
                 config_instance.generate_config_file(path)
             except Exception, e:
-                self._log.warning("Failed to create new config file %r: %s"
-                                  % (path, e))
+                self._log.warning("Failed to create new config file %r: %s" % (path, e))
                 return
         os.startfile(path)
 
@@ -163,6 +170,8 @@ class ShowVersionRule(CompoundRule):
         import dragonfly.engines
         engine = dragonfly.get_engine()
         print "Current language: %r" % engine.language
+        
+        show_natlink_messages_window(duration=3, msg="")
 
 grammar.add_rule(ShowVersionRule())
 
@@ -181,8 +190,10 @@ class UpdateDragonflyRule(CompoundRule):
             def write(self, data): self.stream.write(data)
             def flush(self): pass
         sys.argv = [""]; sys.stdout = Stream()
-        load_entry_point('setuptools', 'console_scripts', 'easy_install')(["--verbose", "--upgrade", "dragonfly"])
+#        load_entry_point('setuptools', 'console_scripts', 'easy_install')(["--verbose", "--upgrade", "dragonfly"])
 #        load_entry_point('setuptools', 'console_scripts', 'easy_install')(["--dry-run", "--upgrade", "dragonfly"])
+
+        show_natlink_messages_window(duration=3, msg="update dragonfly version: IS COMMENTED OUT")
 
 grammar.add_rule(UpdateDragonflyRule())
 
@@ -192,8 +203,22 @@ grammar.add_rule(UpdateDragonflyRule())
 class StaticRule(MappingRule):
 
     mapping = {
-               config.lang.reload_natlink: FocusWindow("natspeak", "Messages from Python Macros")
-                                            + Key("a-f, r"),
+#               config.lang.reload_natlink: FocusWindow("natspeak", "Messages from Python Macros") + Key("a-f, r"),
+                config.lang.reload_natlink: show_natlink_messages_window(duration=3, msg="reload natlink: IS COMMENTED OUT, because it fails with an error, requiring restarting Dragon.")
+# Reloading Python subsystem...
+ # some error occurred
+# Traceback (most recent call last):
+  # File "C:\NatLink\NatLink\MacroSystem\core\natlinkmain.py", line 146, in <module>
+    # import natlinkstatus    # for extracting status info (QH)
+  # File "C:\NatLink\NatLink\MacroSystem\core\natlinkstatus.py", line 180, in <module>
+    # import RegistryDict, natlinkcorefunctions
+  # File "C:\NatLink\NatLink\MacroSystem\core\natlinkcorefunctions.py", line 31, in <module>
+    # from win32com.shell import shell, shellcon
+  # File "C:\Python27\lib\site-packages\win32com\__init__.py", line 82, in <module>
+    # SetupEnvironment()
+  # File "<string>", line 3, in __init__
+# TypeError: 'NoneType' object is not callable
+
               }
 
 grammar.add_rule(StaticRule())

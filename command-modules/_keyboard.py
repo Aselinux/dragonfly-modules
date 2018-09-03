@@ -73,6 +73,10 @@ except ImportError:
 
 from dragonfly import *
 
+from natlink import setMicState
+import lib.sound as sound
+from _dragonfly_tools import show_natlink_messages_window
+
 
 #---------------------------------------------------------------------------
 # Here we globally defined the release action which releases all
@@ -94,32 +98,29 @@ def cancel_and_sleep(text=None, text2=None):
     "'random mumbling go to sleep'" => Microphone sleep.
 
     """
-    from natlink import setMicState
-    import lib.sound as sound
     
-    print("* Dictation canceled. Going to sleep. *")
     sound.play(sound.SND_DING)
     setMicState("sleeping")
-
+    show_natlink_messages_window(duration=5, msg="* Dictation canceled. Going to sleep. *")
+    
+    
 def kick_dragon(text=None, text2=None):
     """
     sending dragon to sleep and up again to reload macros
     """
-    
-    from natlink import setMicState
-    import lib.sound as sound
-    
-    print("** saving notepad, reloading by mic sleeping then on **")
+    sound.play(sound.SND_ERROR)
     Key("c-s").execute()
+    show_natlink_messages_window(duration=2, msg="** saved notepad, reloading by mic sleeping then on **")
     setMicState("sleeping")
     setMicState("on")
-    sound.play(sound.SND_ERROR)
     
 
 def test_keyboard(text=None, text2=None):
-    import lib.sound as sound
-    print("** testing _kayboard.py **")
+    """
+    just print a message to natlink messages window
+    """
     sound.play(sound.SND_MESSAGE)
+    show_natlink_messages_window(duration=3, msg="** testing _kayboard.py **")
     
 
 #---------------------------------------------------------------------------

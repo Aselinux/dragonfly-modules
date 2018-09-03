@@ -498,8 +498,9 @@ config.cmd.map.update({
     #
 })
 
-#this generates a config file, in this directory, _keyboard.txt, but needs manual fixing, just enable this line once then comment it out.
+#this generates a config file, in this directory, named _keyboard.txt, but needs manual fixing, just enable this line once then comment it out.
 #config.generate_config_file()
+# these config files get reloaded automatically when they are edited and saved without the need to sleep and wake up or microphone off and microphone on, because they are monitored for changes by _dragonfly_tools.py (class ConfigManagerGrammar(Grammar))
 namespace = config.load()
 
 #---------------------------------------------------------------------------

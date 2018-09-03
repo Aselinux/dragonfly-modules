@@ -99,27 +99,17 @@ def cancel_and_sleep(text=None, text2=None):
 
     """
     
+    setMicState("sleeping")
+    show_natlink_messages_window(duration=2, msg="* Dictation canceled. Going to sleep. *")
     sound.play(sound.SND_DING)
-    setMicState("sleeping")
-    show_natlink_messages_window(duration=5, msg="* Dictation canceled. Going to sleep. *")
     
-    
-def kick_dragon(text=None, text2=None):
-    """
-    sending dragon to sleep and up again to reload macros
-    """
-    sound.play(sound.SND_ERROR)
-    Key("c-s").execute()
-    show_natlink_messages_window(duration=2, msg="** saved notepad, reloading by mic sleeping then on **")
-    setMicState("sleeping")
-    setMicState("on")
     
 
-def test_keyboard(text=None, text2=None):
+def test_keyboard():
     """
     just print a message to natlink messages window
     """
-    sound.play(sound.SND_MESSAGE)
+
     show_natlink_messages_window(duration=3, msg="** testing _kayboard.py **")
     
 

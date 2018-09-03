@@ -1,5 +1,7 @@
 #
 # This file is a command-module for Dragonfly.
+# (c) Copyright 2018 by AseLinux
+# Modified original dragonfly's _dragonfly_tools.py
 # (c) Copyright 2008 by Christo Butcher
 # Licensed under the LGPL, see <http://www.gnu.org/licenses/>
 #
@@ -56,11 +58,13 @@ try:
 except ImportError:
     pass
 
-import os, time
+import os
 from dragonfly import (Grammar, CompoundRule, DictList, DictListRef,
                        MappingRule, Mimic, Key, FocusWindow,
-                       Window, Config, Section, Item)
+                       Window, Config, Section, Item, Function)
 
+from lib import sound
+import time
 
 #---------------------------------------------------------------------------
 # Set up this module's configuration.
@@ -77,6 +81,11 @@ config.lang.update_dragonfly = Item("update dragonfly version",
                                 doc="Command to ...")
 config.lang.reload_natlink   = Item("reload natlink",
                                 doc="Command to ...")
+config.lang.show_natlink_messages_window = Item("show (natlink|messages) [window]",
+                                doc="Command to ...")
+config.lang.kick_dragon = Item("kick Dragon",
+                                doc="Command to ...")
+                                
 config.load()
 
 
@@ -87,14 +96,29 @@ config_map = DictList("config_map")
 
 #---------------------------------------------------------------------------
 
-def show_natlink_messages_window(duration=3, msg="No message given to show_natlink_messages_window"):
-        # bring the natlink messages window to focus/front to see what is being printed
+def show_natlink_messages_window(duration=3, msg="show_natlink_messages_window"):
+        """
+        bring the natlink messages window to focus/front to see what is being printed
+        """
+        sound.play(sound.SND_MESSAGE)
         FocusWindow("natspeak", "Messages from Python Macros").execute()
         print(msg)
-        time.sleep(duration)
-        Key("alt:down, tab:down/5, alt:up").execute()
+        if duration > 0:
+            time.sleep(duration)
+            Key("alt:down, tab:down/5, alt:up").execute()
 
-
+def kick_dragon():
+    """
+    sending dragon to sleep and up again to reload macros
+    """
+    
+    Key("c-s").execute()
+    show_natlink_messages_window(duration=2, msg="** saved notepad, reloading by mic sleeping then on **")
+    setMicState("sleeping")
+    setMicState("on")
+    
+#---------------------------------------------------------------------------
+    
 class ConfigManagerGrammar(Grammar):
 
     def __init__(self):
@@ -204,7 +228,7 @@ class StaticRule(MappingRule):
 
     mapping = {
 #               config.lang.reload_natlink: FocusWindow("natspeak", "Messages from Python Macros") + Key("a-f, r"),
-                config.lang.reload_natlink: show_natlink_messages_window(duration=3, msg="reload natlink: IS COMMENTED OUT, because it fails with an error, requiring restarting Dragon.")
+                config.lang.reload_natlink: Function(show_natlink_messages_window, duration=4, msg="reload natlink: COMMENTED OUT, causing an error, requiring restart of Dragon."),
 # Reloading Python subsystem...
  # some error occurred
 # Traceback (most recent call last):
@@ -219,6 +243,8 @@ class StaticRule(MappingRule):
   # File "<string>", line 3, in __init__
 # TypeError: 'NoneType' object is not callable
 
+                config.lang.show_natlink_messages_window: Function(show_natlink_messages_window, duration=0),
+                config.lang.kick_dragon: Function(kick_dragon),
               }
 
 grammar.add_rule(StaticRule())

@@ -214,7 +214,8 @@ config.cmd.map    = Item(
     "volume down [<n>]": Key("volumedown:%(n)d"),
     
     # mouse control, default dragon needs "mouse click, mouse right click, there is no middle click",
-    "[do] [left] click": Mouse("left"),
+    # removed the optionality for "do", because PCbyVoice has "show taskbar" followed by "click <number>"
+    "do [left] click": Mouse("left"),
     "[do] right click": Mouse("right"),
     "[do] middle click": Mouse("middle"),
     "[do] double click": Mouse("left:2"),

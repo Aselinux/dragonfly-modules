@@ -71,20 +71,16 @@ import time
 
 config                   = Config("config manager")
 config.lang              = Section("Language section")
-config.lang.list_configs = Item("list configs",
-                                doc="Command to ...")
-config.lang.edit_config  = Item("edit <config> (config | configuration)",
-                                doc="Command to ...")
-config.lang.show_dragonfly_version = Item("show dragonfly version",
-                                doc="Command to ...")
-config.lang.update_dragonfly = Item("update dragonfly version",
-                                doc="Command to ...")
-config.lang.reload_natlink   = Item("reload natlink",
-                                doc="Command to ...")
-config.lang.show_natlink_messages_window = Item("show (natlink|messages) [window]",
-                                doc="Command to ...")
-config.lang.kick_dragon = Item("kick Dragon",
-                                doc="Command to ...")
+
+config.lang.list_configs = Item("list configs", doc="Command to ...")
+config.lang.edit_config  = Item("edit <config> (config | configuration)", doc="Command to ...")
+config.lang.show_dragonfly_version = Item("show dragonfly version", doc="Command to ...")
+config.lang.update_dragonfly = Item("update dragonfly version", doc="Command to ...")
+config.lang.reload_natlink   = Item("reload natlink", doc="Command to ...")
+
+
+config.lang.show_natlink_messages_window = Item("show (natlink|messages) [window]", doc="Command to ...")
+config.lang.kick_dragon = Item("kick Dragon", doc="Command to ...")
                                 
 config.load()
 

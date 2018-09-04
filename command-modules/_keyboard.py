@@ -110,7 +110,7 @@ def test_keyboard():
     just print a message to natlink messages window
     """
 
-    show_natlink_messages_window(duration=3, msg="** testing _kayboard.py **")
+    show_natlink_messages_window(duration=3, msg="** testing _keyboard.py **")
     
 
 #---------------------------------------------------------------------------

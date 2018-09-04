@@ -505,20 +505,20 @@ namespace = config.load()
 format_functions = {}
 if namespace:
     for name, function in namespace.items():
-     if name.startswith("format_") and callable(function):
-        spoken_form = function.__doc__.strip()
+        if name.startswith("format_") and callable(function):
+            spoken_form = function.__doc__.strip()
 
-        # We wrap generation of the Function action in a function so
-        #  that its *function* variable will be local.  Otherwise it
-        #  would change during the next iteration of the namespace loop.
-        def wrap_function(function):
-            def _function(dictation):
-                formatted_text = function(dictation)
-                Text(formatted_text).execute()
-            return Function(_function)
+            # We wrap generation of the Function action in a function so
+            #  that its *function* variable will be local.  Otherwise it
+            #  would change during the next iteration of the namespace loop.
+            def wrap_function(function):
+                def _function(dictation):
+                    formatted_text = function(dictation)
+                    Text(formatted_text).execute()
+                return Function(_function)
 
-        action = wrap_function(function)
-        format_functions[spoken_form] = action
+            action = wrap_function(function)
+            format_functions[spoken_form] = action
 
 
 # Here we define the text formatting rule.

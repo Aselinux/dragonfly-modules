@@ -162,9 +162,8 @@ config.cmd.map    = Item(
      
      # some dragon control stuff, i think i like to use at the moment
      # replaces dragon's "go to sleep" and adds "snore" and extra functionality of cancelling the immediate utterances
-     "[<text>] (snore|go to sleep|cancel and sleep) [<text2>]":                                 Function(cancel_and_sleep),  # @IgnorePep8
-     "(kick dragon|reload grammars)": Function(kick_dragon),
-     "test keyboard":                 Function(test_keyboard),
+     "[<text>] (snore|go to sleep|cancel and sleep) [<text2>]": Function(cancel_and_sleep),  # @IgnorePep8
+     "test keyboard":                                           Function(test_keyboard),
      
     # text editing
      # the usual suspects

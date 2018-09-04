@@ -7,3 +7,65 @@
 # these config files get reloaded automatically when they are edited and saved without the need to sleep and wake up or microphone off and microphone on, because they are monitored for changes by _dragonfly_tools.py (class ConfigManagerGrammar(Grammar))
 
 #cmd.map = {'page up [<n>]': <dragonfly.actions.action_key.Key object at 0x1265C330>, 'select all': <dragonfly.actions.action_base.ActionSeries object at 0x126A8DB0>, '[hold] control': <dragonfly.actions.action_key.Key object at 0x126A8E30>, 'backspace [<n>]': <dragonfly.actions.action_base.ActionSeries object at 0x126A8B90>, 'page down [<n>]': <dragonfly.actions.action_key.Key object at 0x126A84B0>, 'down <n> (page | pages)': <dragonfly.actions.action_key.Key object at 0x126A8670>, 'delete [<n> | this] (line|lines)': <dragonfly.actions.action_base.ActionSeries object at 0x126A8B50>, 'release [all]': <dragonfly.actions.action_key.Key object at 0x126525B0>, 'cut': <dragonfly.actions.action_base.ActionSeries object at 0x126A8D50>, 'pop up': <dragonfly.actions.action_base.ActionSeries object at 0x126A8BF0>, 'home': <dragonfly.actions.action_key.Key object at 0x126A8650>, 'right <n> (word | words)': <dragonfly.actions.action_key.Key object at 0x126A81D0>, 'space [<n>]': <dragonfly.actions.action_base.ActionSeries object at 0x126A89D0>, 'paste': <dragonfly.actions.action_base.ActionSeries object at 0x126A8C50>, 'doc end': <dragonfly.actions.action_key.Key object at 0x126A8790>, 'left [<n>]': <dragonfly.actions.action_key.Key object at 0x1265C350>, 'up [<n>]': <dragonfly.actions.action_key.Key object at 0x12652070>, 'tab [<n>]': <dragonfly.actions.action_key.Key object at 0x126A8070>, 'copy': <dragonfly.actions.action_base.ActionSeries object at 0x126A8CF0>, 'end': <dragonfly.actions.action_key.Key object at 0x126A8470>, 'release control': <dragonfly.actions.action_key.Key object at 0x126A80D0>, 'say <text>': <dragonfly.actions.action_base.ActionSeries object at 0x126A8ED0>, 'enter [<n>]': <dragonfly.actions.action_base.ActionSeries object at 0x126A8AB0>, 'down [<n>]': <dragonfly.actions.action_key.Key object at 0x12652530>, '[hold] shift': <dragonfly.actions.action_key.Key object at 0x126A8DF0>, 'release shift': <dragonfly.actions.action_key.Key object at 0x126A8DD0>, 'up <n> (page | pages)': <dragonfly.actions.action_key.Key object at 0x126A89B0>, 'delete [<n>]': <dragonfly.actions.action_base.ActionSeries object at 0x126A8E70>, 'mimic <text>': <dragonfly.actions.action_base.ActionSeries object at 0x126A8F10>, 'duplicate <n>': <dragonfly.actions.action_base.ActionSeries object at 0x126A8C70>, 'right [<n>]': <dragonfly.actions.action_key.Key object at 0x1265C570>, 'left <n> (word | words)': <dragonfly.actions.action_key.Key object at 0x126A8990>, 'doc home': <dragonfly.actions.action_key.Key object at 0x126A8A30>}
+
+
+
+#---------------------------------------------------------------------------
+# Here we define various functions for formatting text.
+# Each of these functions must have a docstring which defines its
+#  spoken-form.  This docstring must include the "<dictation>" extra.
+#  See below for various examples.
+
+# Format: some_words
+def format_score(dictation):          # Function name must start with "format_".
+    """ score <dictation> """         # Docstring defining spoken-form.
+    text = str(dictation)             # Get written-form of dictated text.
+    return "_".join(text.split(" "))  # Put underscores between words.
+
+# Format: some_words()
+def format_under_function(dictation):
+    """ under func <dictation> """
+    text = str(dictation)
+    return "_".join(text.split(" ")) + "()"
+
+# Format: SomeWords
+def format_studley(dictation):
+    """ studley <dictation> """
+    text = str(dictation)
+    words = [word.capitalize() for word in text.split(" ")]
+    return "".join(words)
+
+# Format: somewords
+def format_one_word(dictation):
+    """ [all] one word <dictation> """
+    text = str(dictation)
+    return "".join(text.split(" "))
+
+# Format: SOMEWORDS
+def format_upper_one_word(dictation):
+    """ one word upper <dictation> """
+    text = str(dictation)
+    words = [word.upper() for word in text.split(" ")]
+    return "".join(words)
+
+# Format: SOME_WORDS
+def format_upper_score(dictation):
+    """ upper score <dictation> """
+    text = str(dictation)
+    words = [word.upper() for word in text.split(" ")]
+    return "_".join(words)
+
+# Format: someWords
+def format_java_method(dictation):
+    """ Java method <dictation> """
+    text = str(dictation)
+    words = text.split(" ")
+    return words[0] + "".join(w.capitalize() for w in words[1:])
+	
+# Format: some-words
+def format_dashes(dictation):
+    """ (hive|dashes) <dictation> """
+    text = str(dictation)
+    words = text.split(" ")	
+    return "-".join(words)
+

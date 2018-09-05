@@ -100,8 +100,9 @@ def cancel_and_sleep(text=None, text2=None):
     """
     
     setMicState("sleeping")
-    show_natlink_messages_window(duration=2, msg="* Dictation canceled. Going to sleep. *")
     sound.play(sound.SND_DING)
+    show_natlink_messages_window(duration=2, msg="* Dictation canceled. Going to sleep. *")
+
     
     
 
@@ -337,7 +338,7 @@ letterKeyMap = {
 #        "(Mike|Mick)": "m",
     "Mick": "m",
 #        "(November|nov|nova)": "n",
-    "nov": "n",
+    "(nova|nov)": "n",
 #        "(oscar|osh)": "o",
     "owsh": "o", # pronounce it as a-w-sh o-u-sh o-sh
 #        "(papa|pup|puppy)": "p",
@@ -381,7 +382,7 @@ symbolKeyMap = {
     "hash": "hash", #"#",
     "dollar|dolly": "dollar", #"$", # i just liked dolly as well
     "percent|centy": "percent", #"%", # just going with the flow
-    "and (sign|symbol)|ampersand|sandy": "percent", #"&",  # ampersand doesn't seem to work, and symbol or sign seems heavy to recognize, sandy is going with the flow
+    "and (sign|symbol)|ampersand|sandy": "ampersand", #"&",  # ampersand doesn't seem to work, and symbol or sign seems heavy to recognize, sandy is going with the flow
 #    "(equal|equals|eeks)": "=",
     "(equal|equals)": "equals", #"=", # using "eeks" for e instead of the problematic echo|etch|eck
     "plus [sign]": "plus", #"+",
@@ -395,10 +396,10 @@ symbolKeyMap = {
     "lack": "lbracket", #"[",
     "rack": "rbracket", #"]",
     "(question|question mark|quest)": "question", #"?",
-    "(back tick)": "`", # remove tick confused with teek and bing not used
-    "(caret|carrot)": "^",
-    "tilde": "~",
-    "(exclamation [mark]|bang|clam|clammy)": "!",
+    "(backtick)": "backtick", #"`", # remove tick confused with teek and bing not used
+    "(caret|carrot)": "caret", #"^",
+    "tilde": "tilde", #"~",
+    "(exclamation [mark]|bang|clam|clammy)": "exclamation", #"!",
 }
 
 # this is the shorthand for press with another key and release

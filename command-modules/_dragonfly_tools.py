@@ -129,11 +129,13 @@ class ConfigManagerGrammar(Grammar):
             new_config_map[c.name] = c
             if not os.path.isfile(c.config_path):
                 continue
+            #print c.config_path
+            #print c.module_path
             config_time = os.path.getmtime(c.config_path)
             module_time = os.path.getmtime(c.module_path)
             if config_time >= module_time:
                 print "reloading config",c.name
-                os.utime(c.module_path, None)
+                os.utime(c.module_path, None) # set the access and modified times to the current time
 
         # Refresh the mapping of config names -> config files.
         config_map.set(new_config_map)

@@ -64,6 +64,7 @@ from dragonfly import (Grammar, CompoundRule, DictList, DictListRef,
                        Window, Config, Section, Item, Function)
 
 from lib import sound
+from natlink import setMicState
 import time
 
 #---------------------------------------------------------------------------

@@ -372,7 +372,7 @@ symbolKeyMap = {
     "(comma|commy|comy)": "comma", #",",  # comma not working as a command, so I added alternatives
     "backslash": "backslash", #"\\",
     "([forward]slash)": "slash", #"/",
-    "(underscore)": "underscore", #"_",
+    "(score|underscore)": "underscore", #"_", # underscore seems not working, and saying "say|dictate underscore" --prints this-> _\underscore
     "(star|asterisk)": "asterisk", #"*",
     "(colon|colly)": "colon", #":",
     "(semicolon|semi)": "semicolon", #";",

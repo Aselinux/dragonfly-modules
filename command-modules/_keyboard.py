@@ -210,7 +210,7 @@ config.cmd.map    = Item(
     "win toggle": Key("win:down, tab/25:3, win:up"),
     "win show": Key("ctrl:down, win:down, tab:down") + Key("control:up, win:up, tab:up"),
 
-    # sound control
+    # sound control, these work on Windows 7 but not on windows 10, will find out later how to fix this
     "volume up [<n>]": Key("volumeup:%(n)d"),
     "volume down [<n>]": Key("volumedown:%(n)d"),
     

@@ -4,15 +4,19 @@
 targets.mapping = {
 
     # Python-specific targets.
-    "(python | pie) (library | lib)":      website("http://docs.python.org/library/"),
-    "(python | pie) home":                 website("http://www.python.org/"),
+    "(python | pie) (library | lib)":       website("http://docs.python.org/library/"),
+    "(python | pie) home":                  website("http://www.python.org/"),
 
     # Dragonfly-specific targets.
-    "dragonfly page":                      website("http://code.google.com/p/dragonfly/"),
-    "dragonfly modules page":              website("http://code.google.com/p/dragonfly-modules/"),
-    "speech computing":                    website("http://www.speechcomputing.com/forum"),
-    "[natlink] macros":                    folder(r"C:\Program Files\NatLink\MacroSystem"),
-    "dragonfly lib":                       folder(r"C:\Python25\Lib\site-packages\dragonfly"),
+    #"dragonfly page":                      website("http://code.google.com/p/dragonfly/"),
+    "dragonfly pypi":                       website("https://pypi.org/project/dragonfly/"),
+    "dragonfly github":                     website("https://github.com/t4ngo/dragonfly"),
+    "dragonfly docs":   website("https://dragonfly.readthedocs.io/en/latest/"),
+    #"dragonfly modules page":              website("http://code.google.com/p/dragonfly-modules/"),
+    #"speech computing":                    website("http://www.speechcomputing.com/forum"),
+    #"[natlink] macros":                    folder(r"C:\Program Files\NatLink\MacroSystem"),
+    "macros":   folder(r"C:\Users\Me\Documents\GitHub\dragonfly-modules\command-modules"),
+    #"dragonfly lib":                       folder(r"C:\Python25\Lib\site-packages\dragonfly"),
 
    }
 

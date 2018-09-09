@@ -35,6 +35,11 @@ Command: **"list configs"**
     The output is visible in the *Messages from Python Macros*
     window.
 
+Command: **"list modules"**
+    Lists the currently available modules.
+    The output is visible in the *Messages from Python Macros*
+    window.
+    
 Command: **"edit <config> (config | configuration)"**
     Opens the given configuration file in the default ``*.txt``
     editor.  The *<config>* element should be one of the
@@ -66,15 +71,21 @@ from dragonfly import (Grammar, CompoundRule, DictList, DictListRef,
 from lib import sound
 from natlink import setMicState
 import time
+import subprocess
 
 #---------------------------------------------------------------------------
 # Set up this module's configuration.
 
 config                   = Config("config manager")
+#config                   = Config("dragonfly tools") # I like to keep those names consistent with the .py module file names
 config.lang              = Section("Language section")
 
 config.lang.list_configs = Item("list configs", doc="Command to ...")
 config.lang.edit_config  = Item("edit <config> (config | configuration)", doc="Command to ...")
+
+config.lang.list_modules = Item("list modules", doc="Command to ...")
+config.lang.edit_module  = Item("edit <module> (module|mod)", doc="Command to ...")
+
 config.lang.show_dragonfly_version = Item("show dragonfly version", doc="Command to ...")
 config.lang.update_dragonfly = Item("update dragonfly version", doc="Command to ...")
 config.lang.reload_natlink   = Item("reload natlink", doc="Command to ...")
@@ -151,13 +162,33 @@ class ListConfigsRule(CompoundRule):
     spec = config.lang.list_configs
 
     def _process_recognition(self, node, extras):
-        print "Active configuration files:"
+        print "Active configuration files i.e. _name.txt:"
         configs = config_map.keys()
         configs.sort()
         for config in configs:
             print "  - %s" % config
 
 grammar.add_rule(ListConfigsRule())
+
+#---------------------------------------------------------------------------
+
+class ListModulesRule(CompoundRule):
+
+    spec = config.lang.list_modules
+
+    def _process_recognition(self, node, extras):
+        print "Active dragonfly modules i.e. _name.py:"
+        configs = config_map.keys()
+        configs.sort()
+        
+        print( "{:>20} {:>20} {:>20}".format("module name", "module file", "config file") )
+        print( "{:>20} {:>20} {:>20}".format("-"*20, "-"*20, "-"*20) )
+        
+        for config in configs:
+            #print "  - %s: %s" % ( config, str(config_map[config].module_path.split("\\")[-1]) )
+            print( "{:>20} {:>20} {:>20}".format( config, str(config_map[config].module_path.split("\\")[-1]), str(config_map[config].config_path.split("\\")[-1]) ) )
+
+grammar.add_rule(ListModulesRule())
 
 
 #---------------------------------------------------------------------------
@@ -176,9 +207,29 @@ class EditConfigRule(CompoundRule):
             except Exception, e:
                 self._log.warning("Failed to create new config file %r: %s" % (path, e))
                 return
-        os.startfile(path)
+        #os.startfile(path) # this seems to open the config file in notepad++, but it crashes Dragon 15 altogether on Windows 7 and Windows 10 both 64-bit and the rest of the stack of dragonfly NatLink python and pywin32 are all 32-bit
+        #print(path)
+        subprocess.Popen([r"C:\Program Files\Notepad++\notepad++.exe", path])
 
 grammar.add_rule(EditConfigRule())
+
+
+#---------------------------------------------------------------------------
+
+class EditModuleRule(CompoundRule):
+
+    spec = config.lang.edit_module
+    extras = [DictListRef("module", config_map)]
+
+    def _process_recognition(self, node, extras):
+        module_instance = extras["module"]
+        path = module_instance.module_path
+        if not os.path.isfile(path):
+            print("I can't find the module file you want to edit!!")
+
+        subprocess.Popen([r"C:\Program Files\Notepad++\notepad++.exe", path])
+
+grammar.add_rule(EditModuleRule())
 
 
 #---------------------------------------------------------------------------

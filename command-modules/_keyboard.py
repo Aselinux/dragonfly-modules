@@ -78,6 +78,15 @@ import lib.sound as sound
 from _dragonfly_tools import show_natlink_messages_window
 
 
+import win32con
+from dragonfly.actions.keyboard import Typeable, keyboard
+from dragonfly.actions.typeables import typeables
+if not 'Control_R' in typeables:
+    keycode = win32con.VK_RCONTROL
+    typeables["Control_R"] = Typeable(code=keycode, name="Control_R")
+if not 'semicolon' in typeables:
+    typeables["semicolon"] = keyboard.get_typeable(char=';')
+
 #---------------------------------------------------------------------------
 # Here we globally defined the release action which releases all
 #  modifier-keys used within this grammar.  It is defined here
@@ -223,8 +232,9 @@ config.cmd.map    = Item(
     "[do] triple click": Mouse("left:3"),
     "[do] start drag": Mouse("left:down"),
     "[do] stop drag": Mouse("left:up"),
-    
-    
+
+    # To release keyboard capture by VirtualBox.
+    "press right control": Key("Control_R"),   
             
     },
     namespace={

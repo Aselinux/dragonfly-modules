@@ -108,7 +108,8 @@ class open(BringableBase):
         BringableBase.__init__(self, target)
     def bring_it(self):
         target = self.target
-        os.startfile(target, self.verb)
+        #os.startfile(target, self.verb) # this causes Dragon 15 to crash, tested on Windows 10 64-bit with the rest of the stack of python and dragonfly is 32-bit
+        subprocess.Popen([self.verb, target])
 
 class ssh(BringableBase):
     putty_path = r"C:\Program Files\PuTTY\putty"

@@ -17,6 +17,10 @@ targets.mapping = {
     #"[natlink] macros":                    folder(r"C:\Program Files\NatLink\MacroSystem"),
     "macros":   folder(r"C:\Users\Me\Documents\GitHub\dragonfly-modules\command-modules"),
     #"dragonfly lib":                       folder(r"C:\Python25\Lib\site-packages\dragonfly"),
+    
+    # NatLink
+    "NatLink config":                       open(r"C:\NatLink\NatLink\confignatlinkvocolaunimacro\start_natlinkconfigfunctions.py", r"C:\Python27\python.exe"),
+    
 
    }
 

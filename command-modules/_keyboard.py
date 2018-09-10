@@ -193,6 +193,8 @@ config.cmd.map    = Item(
      # jump top or bottom of page, works in browsers, editors, email, etc, like dragons default commands scroll up and scroll down
      "(doc home|north)": Key("c-home"),
      "(doc end|south)":  Key("c-end"),
+     "(shift|sky) north": Key("shift:down/3") + Key("c-home"),
+     "(shift|sky) south":  Key("shift:down/3") + Key("c-end"),
      # Closures.
      "angle brackets": Key("langle, rangle, left/3"),
      "brackets": Key("lbracket, rbracket, left/3"),
@@ -210,9 +212,12 @@ config.cmd.map    = Item(
     # tab control, in browser, notepad, file explorer, gnome-shell, etc
     "(pret|preet) [<n>]": Key("c-pgup/5:%(n)d"),
     "(net|neat) [<n>]":  Key("c-pgdown/5:%(n)d"),
-    "clote":      Key("c-w"),
-    "backward":   Key("a-left"),
-    "forward":    Key("a-right"),    
+    # moving tabs  
+    "(shift|sky) (pret|preet) [<n>]": Key("shift:down/3") + Key("c-pgup/5:%(n)d"),
+    "(shift|sky) (net|neat) [<n>]":  Key("shift:down/3") + Key("c-pgdown/5:%(n)d"),
+    "clote [<n>]":      Key("c-w/2:%(n)d"),
+    "backward [<n>]":   Key("a-left/2:%(n)d"),
+    "forward [<n>]":    Key("a-right/2:%(n)d"),    
 
     # Windows control
     "win flip": Key("alt:down, tab:down/5, alt:up"),	# the 5 is outerpause and is about the minimum for this to work

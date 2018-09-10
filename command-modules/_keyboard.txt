@@ -77,6 +77,14 @@ def format_upper_case(dictation):
     #return " ".join(words)
     return text.upper()
 
+# Format: some words
+def format_lower_case(dictation):
+    """ (all-small|lowercase) <dictation> """
+    text = str(dictation)
+    #words = [word.upper() for word in text.split(" ")]
+    #return " ".join(words)
+    return text.lower()
+
 # Format: Some Words
 def format_upper_case(dictation):
     """ (title case|titlefy) <dictation> """

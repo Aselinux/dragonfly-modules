@@ -50,7 +50,7 @@ def format_upper_one_word(dictation):
 
 # Format: SOME_WORDS
 def format_upper_score(dictation):
-    """ upper (snake [case]|scorify|score) <dictation> """
+    """ upper (snake|score) <dictation> """
     text = str(dictation)
     words = [word.upper() for word in text.split(" ")]
     return "_".join(words)

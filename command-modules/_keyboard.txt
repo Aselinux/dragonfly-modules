@@ -71,7 +71,7 @@ def format_dashes(dictation):
 
 # Format: SOME WORDS
 def format_upper_case(dictation):
-    """ (all-caps|capitalise) <dictation> """
+    """ (uppercase|all-caps|capitalise) <dictation> """
     text = str(dictation)
     #words = [word.upper() for word in text.split(" ")]
     #return " ".join(words)
@@ -86,7 +86,7 @@ def format_lower_case(dictation):
     return text.lower()
 
 # Format: Some Words
-def format_upper_case(dictation):
+def format_title_case(dictation):
     """ (title case|titlefy) <dictation> """
     text = str(dictation)
     #words = [word.capitalise() for word in text.split(" ")]

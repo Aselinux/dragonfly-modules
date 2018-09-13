@@ -71,7 +71,7 @@ def format_dashes(dictation):
 
 # Format: SOME WORDS
 def format_upper_case(dictation):
-    """ (uppercase|all-caps|capitalise) <dictation> """
+    """ (uppercase|all-caps|capitalise) <dictation> """ # even though the world capitalise is used to capitalise only the first letter of word
     text = str(dictation)
     #words = [word.upper() for word in text.split(" ")]
     #return " ".join(words)

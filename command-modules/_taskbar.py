@@ -1,5 +1,9 @@
 #
 # This file is a command-module for Dragonfly.
+# (c) Copyright 2018 by AseLinux
+# Modified original dragonfly's _taskbar.py https://github.com/t4ngo/dragonfly-modules/blob/master/command-modules/_taskbar.py
+#
+# This file is a command-module for Dragonfly.
 # (c) Copyright 2008 by Christo Butcher
 # Licensed under the LGPL, see <http://www.gnu.org/licenses/>
 #

@@ -1,7 +1,8 @@
 #
 # This file is a command-module for Dragonfly.
 # (c) Copyright 2018 by AseLinux
-# Modified original dragonfly's _multiedit.py https://github.com/t4ngo/dragonfly-modules/blob/master/command-modules/_multiedit.py 
+# Modified original dragonfly's _multiedit.py https://github.com/t4ngo/dragonfly-modules/blob/master/command-modules/_multiedit.py
+#
 # (c) Copyright 2008 by Christo Butcher
 # Licensed under the LGPL, see <http://www.gnu.org/licenses/>
 #

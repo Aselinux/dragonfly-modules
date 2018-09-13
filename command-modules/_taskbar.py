@@ -102,6 +102,13 @@ class IconRule(MappingRule):
 
 
 #---------------------------------------------------------------------------
+# Set up this module's configuration.
+
+config                   = Config("taskbar")
+config.load()
+
+
+#---------------------------------------------------------------------------
 # Load the grammar instance and define how to unload it.
 
 grammar = Grammar("taskbar")

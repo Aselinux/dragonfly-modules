@@ -266,7 +266,7 @@ functionKeyMap = {
 }
 
 controlKeyMap = {
-    "(left|leaf)": "left",
+    "(left|loss)": "left", # leaf was getting confused with lape i.e. left parenthesis
     "(right|ross)": "right",
     "(up|gup|gope|goop)": "up",
     "(down|gun|gown)": "down",
@@ -335,11 +335,11 @@ letterKeyMap = {
 #        "delta": "d",
     "dell": "d",
 #        "echo|eco|etch|eck": "e",
-    "eeks|echo": "e",
+    "(eeks|echo|edge)": "e",
 #        "(foxtrot|fox|fomp)": "f",
     "fox|fomp": "f",
 #        "(golf|goal)": "g",
-    "golf|goof": "g",
+    "(golf|goof|Geek)": "g",
 #        "(hotel|hot|hark)": "h",
     "hark": "h",
 #        "(India|indigo|ice)": "i",
@@ -361,7 +361,7 @@ letterKeyMap = {
 #        "(Quebec|queen)": "q",
     "queen": "q",
 #        "(Romeo|Rome|rom)": "r",
-    "rom": "r",
+    "Roche": "r",
 #        "(Sierra|souk)": "s",
     "souk": "s",
 #        "(Tango|tang|teek)": "t",
@@ -371,7 +371,7 @@ letterKeyMap = {
 #        "(Victor|vic)": "v",
     "vic": "v",
 #        "(whiskey|whis|whisk|womp)": "w",
-    "whis": "w",
+    "(whis|whisk)": "w",
 #        "(x-ray|ex)": "x",
     "x-ray": "x",
 #        "(Yankee|yank|yang)": "y",

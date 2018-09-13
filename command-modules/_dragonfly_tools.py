@@ -46,6 +46,12 @@ Command: **"edit <config> (config | configuration)"**
     configuration names given by the **"list configs"**
     command.
 
+Command: **"edit <module> (module|mod)"**
+    Opens the given module file in "notepad+"
+    editor.  The *<module>* element should be one of the
+    module/configuration names given by the **"list modules"** or **"list configs"**
+    command.
+
 Command: **"show dragonfly version"**
     Displays the version of the currently active Dragonfly library.
 

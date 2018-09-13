@@ -218,7 +218,11 @@ config.cmd.map    = Item(
     "(shift|sky) (net|neat) [<n>]":  Key("shift:down/3") + Key("c-pgdown/5:%(n)d"),
     "clote [<n>]":      Key("c-w/2:%(n)d"),
     "backward [<n>]":   Key("a-left/2:%(n)d"),
-    "forward [<n>]":    Key("a-right/2:%(n)d"),    
+    "forward [<n>]":    Key("a-right/2:%(n)d"),
+    "upward [<n>]":    Key("a-up/2:%(n)d"),
+    # zoom
+    "zoom [in] [<n>]":    Key("c-plus:%(n)d"),
+    "zoom out [<n>]":    Key("c-minus:%(n)d"),
 
     # Windows control
     "win flip": Key("alt:down, tab:down/5, alt:up"),	# the 5 is outerpause and is about the minimum for this to work

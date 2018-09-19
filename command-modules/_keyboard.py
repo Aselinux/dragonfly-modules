@@ -352,7 +352,7 @@ letterKeyMap = {
 #        "(Juliet|Julie|jewel)": "j",
     "Julie": "j",
 #        "(kilo|keel|kill)": "k",
-    "keel": "k",
+    "(kill|keel)": "k",
 #        "(lima|limb)": "l",
     "limb": "l",
 #        "(Mike|Mick)": "m",
@@ -391,7 +391,7 @@ symbolKeyMap = {
     "(dot|dotty|period|point|dit|doot)": "dot", #".",
     "(comma|commy|comy)": "comma", #",",  # comma not working as a command, so I added alternatives
     "(backslash|blash|clash)": "backslash", #"\\", # backslash doesn't seem to work, so I added blash & clash, the symbols that seem not to work are the ones that when I say "say symbol_name" --prints this--> \symbol_name, like this --> \backslash
-    "([forward] slash|flash|lash)": "slash", #"/", # the word slash stopped working (maybe it wasn't working from the beginning), so I added flash & lash
+    "([forward] slash|flash|lash|slashy)": "slash", #"/", # the word slash stopped working (maybe it wasn't working from the beginning), so I added flash & lash
     "(score|underscore)": "underscore", #"_", # underscore seems not working, and saying "say|dictate underscore" --prints this-> _\underscore
     "(star|asterisk)": "asterisk", #"*",
     "(colon|colly)": "colon", #":",

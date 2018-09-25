@@ -11,7 +11,7 @@ targets.mapping = {
     #"dragonfly page":                      website("http://code.google.com/p/dragonfly/"),
     "dragonfly pypi":                       website("https://pypi.org/project/dragonfly/"),
     "dragonfly github":                     website("https://github.com/t4ngo/dragonfly"),
-    "dragonfly docs":   website("https://dragonfly.readthedocs.io/en/latest/"),
+    "dragonfly docs":                       website("https://dragonfly.readthedocs.io/en/latest/"),
     #"dragonfly modules page":              website("http://code.google.com/p/dragonfly-modules/"),
     #"speech computing":                    website("http://www.speechcomputing.com/forum"),
     #"[natlink] macros":                    folder(r"C:\Program Files\NatLink\MacroSystem"),
@@ -20,6 +20,9 @@ targets.mapping = {
     
     # NatLink
     "NatLink config":                       open(r"C:\NatLink\NatLink\confignatlinkvocolaunimacro\start_natlinkconfigfunctions.py", r"C:\Python27\python.exe"),
+    
+    # https://github.com/
+    "git hub":                       website("https://github.com/"),
     
 
    }

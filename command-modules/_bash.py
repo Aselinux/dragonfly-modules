@@ -1,9 +1,11 @@
 #
-# This file is part of Dragonfly.
-# (c) Copyright 2008 by Christo Butcher
-# Licensed under the LGPL.
+# This file is a command-module for Dragonfly.
+# (c) Copyright 2018 by AseLinux
+# Modified original dragonfly's _multiedit.py https://github.com/t4ngo/dragonfly-modules/blob/master/command-modules/_multiedit.py
+# amalgamated with some ideas and thoughts from https://github.com/Aselinux/dragonfly-scripts/tree/master/dynamics
 #
-#   <http://www.gnu.org/licenses/>.
+# (c) Copyright 2008 by Christo Butcher
+# Licensed under the LGPL, see <http://www.gnu.org/licenses/>
 #
 
 """
@@ -28,6 +30,8 @@ except ImportError:
     pass
 
 from dragonfly import (Grammar, MappingRule, Key, Text, Config)
+from lib.text import SCText # this should solve the problem of Text into Virtual box Bash terminal when there is successive for example (( being printed as (9
+
 
 #---------------------------------------------------------------------------
 # Set up this module's configuration.
@@ -43,6 +47,9 @@ bash_rule = MappingRule(
     name="bash",
     mapping={
     
+            # test bash
+             "test bash": Text("this is from Text: :: ;; (( )) (((()))))") + SCText("this is from SCText: :: ;; (( )) (((()))))"),
+             
             # terminal  
              "[keyboard] break": Key("c-c"),
              "new terminal": Key("ca-t"),
@@ -68,7 +75,7 @@ bash_rule = MappingRule(
              "find file": Text("find ./ -iname '**'") + Key("left:2"),
                      
             # curl
-             "curl help": Text("curl -X --request GET -k --insecure -L --location -u --user $USER:$PASSWORD -A --user-agent 'AselCurl' -H --header 'Host: website.com' --header 'key1: value1' -b --cookie 'key1=value1; key2=value2' -v --verbose -t --trace-ascii /dev/stderr -D --dump-header /dev/stderr -d --data '{\"key1\": \"value1\", \"key2\": \"value2\"}' --url $URL "),
+             "curl help": SCText("curl -X --request GET -k --insecure -L --location -u --user $USER:$PASSWORD -A --user-agent 'AselCurl' -H --header 'Host: website.com' --header 'key1: value1' -b --cookie 'key1=value1; key2=value2' -v --verbose -t --trace-ascii /dev/stderr -D --dump-header /dev/stderr -d --data '{\"key1\": \"value1\", \"key2\": \"value2\"}' --url $URL"),
              "curl shabang": Text("curl -v -k -X GET -L --url "),
              
             # Ubuntu
@@ -83,8 +90,8 @@ bash_rule = MappingRule(
              "process forest": Text("ps auxf | less"),
              
             # git
-             "git reset hard": Text("#git reset --hard HEAD # deletes everything after last commit"),
-             "git reset soft": Text("#git reset --soft HEAD^ # moves head to parent HEAD~1 HEAD@{1}"),
+             "git reset hard": Text("#git reset --hard HEAD ;# deletes everything after last commit"),
+             "git reset soft": Text("#git reset --soft HEAD^ ;# moves head to parent HEAD~1 HEAD@{1}"),
              "git status": Text("git status") + Key("enter"),
              "git [log] follow": Text("git log --follow "),
              "git log": Text("git log ") + Key("enter"),
@@ -97,7 +104,7 @@ bash_rule = MappingRule(
              "pipe head": Text(" | head") + Key("enter:%(n)d"),
              "pipe sort unique": Text(" | sort | uniq -c | sort -n -k1"),
 
-             "T C P dump headers": Text("sudo tcpdump -nn -i any -A -s 0 'tcp port 80 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)' | egrep --line-buffered '^........(GET |HTTP\/|POST |HEAD )|^[A-Za-z0-9-]+: ' | sed -r 's/^.{8}(GET |HTTP\/|POST |HEAD )/\\n\\1/g'"),
+             "T C P dump headers": SCText("sudo tcpdump -nn -i any -A -s 0 'tcp port 80 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)' | egrep --line-buffered '^........(GET |HTTP\/|POST |HEAD )|^[A-Za-z0-9-]+: ' | sed -r 's/^.{8}(GET |HTTP\/|POST |HEAD )/\\n\\1/g'"),
 
              "pipe zargz": Text(" | xargs -I") + Key("percent") + Text(" "),
 
@@ -155,12 +162,12 @@ bash_rule = MappingRule(
 #---------------------------------------------------------------------------
 # Load the grammar instance and define how to unload it.
 
-bash_grammar  = Grammar("bash")
-bash_grammar.add_rule(bash_rule)
-bash_grammar.load()
+grammar  = Grammar("bash")
+grammar.add_rule(bash_rule)
+grammar.load()
 
 # Unload function which will be called by natlink at unload time.
 def unload():
-    global bash_grammar
-    if bash_grammar:  bash_grammar.unload()
-    bash_grammar = None
+    global grammar
+    if grammar:  grammar.unload()
+    grammar = None

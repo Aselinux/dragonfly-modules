@@ -65,8 +65,8 @@ def init_default_values():
     global CONFIG
     valueChangeCount = 0
     defaultValues = [
-        ("aenea.enabled", False),
-        ("aenea.path", None),
+#        ("aenea.enabled", False),
+#        ("aenea.path", None),
     ]
     for (name, value) in defaultValues:
         if not name in CONFIG.keys():

@@ -1,13 +1,19 @@
 
+# Learnt from C:\NatLink\NatLink\MacroSystem\core\natlinkmain.py
+import natlinkstatus
+status = natlinkstatus.NatlinkStatus()
+
 #--- Targets section -------------------------------------------------------
 
 targets.mapping = {
 
     # Python-specific targets.
+    #-------------------------
     "(python | pie) (library | lib)":       website("http://docs.python.org/library/"),
     "(python | pie) home":                  website("http://www.python.org/"),
 
     # Dragonfly-specific targets.
+    #----------------------------
     #"dragonfly page":                      website("http://code.google.com/p/dragonfly/"),
     "dragonfly pypi":                       website("https://pypi.org/project/dragonfly/"),
     "dragonfly github":                     website("https://github.com/t4ngo/dragonfly"),
@@ -17,12 +23,19 @@ targets.mapping = {
     #"[natlink] macros":                    folder(r"C:\Program Files\NatLink\MacroSystem"),
     "macros":   folder(r"C:\Users\Me\Documents\GitHub\dragonfly-modules\command-modules"),
     #"dragonfly lib":                       folder(r"C:\Python25\Lib\site-packages\dragonfly"),
-    
+
     # NatLink
-    "NatLink config":                       open(r"C:\NatLink\NatLink\confignatlinkvocolaunimacro\start_natlinkconfigfunctions.py", r"C:\Python27\python.exe"),
+    #--------
+    "natlink (config|status|ini) [file]":                  open(r"C:\NatLink\NatLink\MacroSystem\core\natlinkstatus.ini", r"C:\Program Files\Notepad++\notepad++.exe"),
+
+    "NatLink (configurator|config programme)":  open(r"C:\NatLink\NatLink\confignatlinkvocolaunimacro\start_natlinkconfigfunctions.py", r"C:\Python27\python.exe"),
     
-    # https://github.com/
-    "git hub":                       website("https://github.com/"),
+    "[natlink] (my|user) macros [directory]": folder(status.getUserDirectory()),
+    "(natlink directory|[natlink] default macros [directory])": folder(status.getCoreDirectory()),
+    
+    
+    # https://github.com/Aselinux
+    "[my] git hub":                       website("https://github.com/Aselinux"),
     
 
    }

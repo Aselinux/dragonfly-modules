@@ -61,6 +61,10 @@ Command: **"update dragonfly version"**
 Command: **"reload natlink"**
     Reloads Natlink.
 
+Command: **"show (natlink|messages) [window]"**
+Command: **"kick Dragon"**
+Command: **"show [natlink] macros directory"**
+    
 """
 
 try:
@@ -76,6 +80,8 @@ from dragonfly import (Grammar, CompoundRule, DictList, DictListRef,
 
 from lib import sound
 from natlink import setMicState
+import natlinkstatus
+
 import time
 import subprocess
 
@@ -99,7 +105,8 @@ config.lang.reload_natlink   = Item("reload natlink", doc="Command to ...")
 
 config.lang.show_natlink_messages_window = Item("show (natlink|messages) [window]", doc="Command to ...")
 config.lang.kick_dragon = Item("kick Dragon", doc="Command to ...")
-                                
+config.lang.show_natlink_macros_directory = Item("show [natlink] macros directory", doc="Command to ...")                               
+
 config.load()
 
 
@@ -108,7 +115,7 @@ config.load()
 config_map = DictList("config_map")
 
 
-#---------------------------------------------------------------------------
+#---|------------------------------------------------------------------------
 
 def show_natlink_messages_window(duration=3, msg="show_natlink_messages_window"):
         """
@@ -130,6 +137,18 @@ def kick_dragon():
     show_natlink_messages_window(duration=2, msg="** saved notepad, reloading by mic sleeping then on **")
     setMicState("sleeping")
     setMicState("on")
+
+def show_natlink_macros_directory():
+    """
+    show natlink's macros directory, whether it's the default or a user-defined one
+    """
+    
+    status = natlinkstatus.NatlinkStatus()
+    show_natlink_messages_window(duration=0, msg="""
+natlink's macros directory:
+---------------------------
+default: %s
+UserDirectory: %s""" % (status.getCoreDirectory(), status.getUserDirectory()))
     
 #---------------------------------------------------------------------------
     
@@ -301,6 +320,7 @@ class StaticRule(MappingRule):
 
                 config.lang.show_natlink_messages_window: Function(show_natlink_messages_window, duration=0),
                 config.lang.kick_dragon: Function(kick_dragon),
+                config.lang.show_natlink_macros_directory: Function(show_natlink_macros_directory),
               }
 
 grammar.add_rule(StaticRule())

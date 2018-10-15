@@ -21,7 +21,7 @@ targets.mapping = {
     #"dragonfly modules page":              website("http://code.google.com/p/dragonfly-modules/"),
     #"speech computing":                    website("http://www.speechcomputing.com/forum"),
     #"[natlink] macros":                    folder(r"C:\Program Files\NatLink\MacroSystem"),
-    "macros":   folder(r"C:\Users\Me\Documents\GitHub\dragonfly-modules\command-modules"),
+    #"macros":   folder(r"C:\Users\Me\Documents\GitHub\dragonfly-modules\command-modules"),
     #"dragonfly lib":                       folder(r"C:\Python25\Lib\site-packages\dragonfly"),
 
     # NatLink
@@ -30,8 +30,9 @@ targets.mapping = {
 
     "NatLink (configurator|config programme)":  open(r"C:\NatLink\NatLink\confignatlinkvocolaunimacro\start_natlinkconfigfunctions.py", r"C:\Python27\python.exe"),
     
-    "[natlink] (my|user) macros [directory]": folder(status.getUserDirectory()),
-    "(natlink directory|[natlink] default macros [directory])": folder(status.getCoreDirectory()),
+    "(my|user) [natlink] macros [directory]": folder(status.getUserDirectory()),
+    "core natlink [directory]": folder(status.getCoreDirectory()),
+    "(default [natlink] macros [directory]|[natlink] macrosystem)": folder("C:\NatLink\NatLink\MacroSystem"),
     
     
     # https://github.com/Aselinux

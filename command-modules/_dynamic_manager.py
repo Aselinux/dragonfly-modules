@@ -31,6 +31,8 @@ config = lib.config.get_config()
 import lib.sound as sound
 import dynamics
 
+import os, glob
+
 moduleMapping = {}
 
 
@@ -219,7 +221,32 @@ series_rule = SeriesMappingRule(
     }
 )
 
-grammar = Grammar("Dynamic manager", context=None)
+
+#---------------------------------------------------------------------------
+# reload when one of dynamics/*.py is edited
+class DynamicManagerGrammar(Grammar):
+
+    def __init__(self):
+        Grammar.__init__(self, name="Dynamic manager", context=None)
+
+    def _process_begin(self, executable, title, handle):
+    # Check for modified dynamic modules files, and if found cause reload dynamic manager module (_dynamic_manager.py) by config manager module (_dragonfly_tools.py) and the former causes reload of the dynamic module that has actually been edited
+        dynamics_files = ["C:\Users\uc222343\Documents\GitHub\dragonfly-modules\command-modules\dynamics\%s" % x for x in glob.glob("C:\Users\uc222343\Documents\GitHub\dragonfly-modules\command-modules\dynamics\*_grammar.py")]
+        
+        for d in dynamics_files:
+            #print d, __file__
+            if not os.path.isfile(d):
+                continue
+            d_time = os.path.getmtime(d)
+            module_time = os.path.getmtime(__file__)
+            print d_time, module_time
+            if d_time >= module_time:
+                print "reloading %s to reload %s" % (os.path.basename(__file__), os.path.basename(d))
+                os.utime(__file__, None) # set the access and modified times to the current time
+
+
+#grammar = Grammar("Dynamic manager", context=None)
+grammar = DynamicManagerGrammar()
 grammar.add_rule(series_rule)
 grammar.load()
 

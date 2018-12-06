@@ -111,7 +111,8 @@ def cancel_and_sleep(text=None, text2=None):
     
     setMicState("sleeping")
     sound.play(sound.SND_DING)
-    show_natlink_messages_window(duration=2, msg="* Dictation canceled. Going to sleep. *")
+    # this was becoming annoying,as after the two seconds it was flipping the window sometimes not back to the active window I was on
+    #show_natlink_messages_window(duration=2, msg="* Dictation canceled. Going to sleep. *")
 
     
     

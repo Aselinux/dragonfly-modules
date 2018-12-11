@@ -6,14 +6,16 @@ from dragonfly import (
     CompoundRule,
     RuleRef,
     Repetition,
-    Choice
-)
-
-from lib.dynamic_aenea import (
-    GlobalDynamicContext,
+    Choice,
     Key,
     Text,
 )
+
+# from lib.dynamic_aenea import (
+    # GlobalDynamicContext,
+    # Key,
+    # Text,
+# )
 
 
 from lib.text import SCText
@@ -211,7 +213,8 @@ series_rule = SeriesMappingRule(
     }
 )
 
-grammar = Grammar("Git commands", context=GlobalDynamicContext())
+#grammar = Grammar("Git commands", context=GlobalDynamicContext())
+grammar = Grammar("Git commands", context=None)
 grammar.add_rule(series_rule)
 grammar.load()
 grammar.disable()

@@ -1,3 +1,4 @@
 {
-    "dynamics.bash": true
+    "dynamics.bash": false, 
+    "dynamics.git": false
 }

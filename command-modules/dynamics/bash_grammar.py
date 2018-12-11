@@ -81,7 +81,7 @@ rules = MappingRule(
         # "kill (hard|[dash]9)": Text("kill -9 "),
         # "kill line": Key("c-k"),
         # "(link|L N)": Text("ln "),
-        # "list files": Text("ls -la") + Key("enter"),
+        "list files": Text("ls -la") + Key("enter"),
         # "list files <text>": SCText("ls -la %(text)s"),
         # "list files time sort": Text("ls -lat") + Key("enter"),
         "make (directory|dir)": Text("mkdir "),

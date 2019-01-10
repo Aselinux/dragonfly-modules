@@ -43,6 +43,8 @@ rules = MappingRule(
         "sudo apt get upgrade": Text("sudo apt-get upgrade") + Key("enter"),
         # "background": Text("bg "),
         # "(cat|C A T)": Text("cat "),
+        "(cat out|concatenate|C A T)": Text("cat "),
+        "(cat into|concatenate into)": Text("cat > "),
         # "(cat|C A T) <text>": SCText("cat %(text)s"),
         "(change (directory|dir)|C D)": Text("cd "),
         # "(change (directory|dir)|C D) <text>": SCText("cd %(text)s"),

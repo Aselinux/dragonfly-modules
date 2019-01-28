@@ -144,22 +144,25 @@ rules = MappingRule(
         "T C P dump headers": Text("sudo tcpdump -nn -i any -A -s 0 'tcp port 80 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)' | egrep --line-buffered '^........(GET |HTTP\/|POST |HEAD )|^[A-Za-z0-9-]+: ' | sed -r 's/^.{8}(GET |HTTP\/|POST |HEAD )/\\n\\1/g'"),
 
         "pipe zargz": Text(" | xargs -I") + Key("percent") + Text(" "),
+        
+        "cat out": Text("cat "),
+        "cat into": Text("cat >"),
 
         # my common directories
-        "less var log": Text("less /var/log/") + Key("tab:2"),
-        "cat var log": Text("cat /var/log/") + Key("tab:2"),
-        "var log": Text("/var/log/") + Key("tab:2"),
-        "et see": Text("/etc/") + Key("tab:2"),
-        "vim et see": Text("vim /etc/") + Key("tab:2"),
+        "slash var log": Text("/var/log/") + Key("tab:2"),
+        "slash et see": Text("/etc/"),
+        "slash temp": Text("/tmp/"),
 
         "break": Key("c-c"),
         
         # common bash scripting
         "for i in": Text("for i in "),
-        "for loop": Text("for i in ; do echo $i; ; done") + Key("left/5:20"),
+        "for loop": Text("for i in `cat ${f}`; do echo $i; done"),
+        "while loop": Text("while read i; do echo $i; done<${f}"),
 
         # my vim
         "vim save": Key("escape, colon, w, enter"),
+        "vim quick and save": Key("escape, colon, x, enter"),
         "double dell": Key("d, d"),
         "double yank": Key("y, y"),
     },

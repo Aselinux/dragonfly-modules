@@ -252,7 +252,7 @@ class EditModuleRule(CompoundRule):
         if not os.path.isfile(path):
             print("I can't find the module file you want to edit!!")
 
-        subprocess.Popen([r"C:\Program Files\Notepad++\notepad++.exe", path])
+        subprocess.Popen([r"C:\Program Files (x86)\Notepad++\notepad++.exe", path])
 
 grammar.add_rule(EditModuleRule())
 

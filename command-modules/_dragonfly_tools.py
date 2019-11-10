@@ -234,7 +234,7 @@ class EditConfigRule(CompoundRule):
                 return
         #os.startfile(path) # this seems to open the config file in notepad++, but it crashes Dragon 15 altogether on Windows 7 and Windows 10 both 64-bit and the rest of the stack of dragonfly NatLink python and pywin32 are all 32-bit
         #print(path)
-        subprocess.Popen([r"C:\Program Files\Notepad++\notepad++.exe", path])
+        subprocess.Popen([r"C:\Program Files (x86)\Notepad++\notepad++.exe", path])
 
 grammar.add_rule(EditConfigRule())
 
